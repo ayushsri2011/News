@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="apiKey">a631133308204b1ba583dc2ed43486b5</string>
+    <string name="category_business">business</string>
+    <string name="category_entertainment">entertainment</string>
+    <string name="category_general">general</string>
+    <string name="category_health">health</string>
+    <string name="category_science">science</string>
+    <string name="category_sports">sports</string>
+    <string name="category_technology">technology</string>
+
+    <string name="request_LatestNews">https://newsapi.org/v2/top-headlines?country=</string>
+    <!--https://newsapi.org/v2/top-headlines?country=us&apiKey=a631133308204b1ba583dc2ed43486b5-->
+    <!--https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=a631133308204b1ba583dc2ed43486b5-->
+
+    <string name="request_SearchNews">https://newsapi.org/v2/everything?q=</string>
+    <!--https://newsapi.org/v2/everything?q=bitcoin&apiKey=a631133308204b1ba583dc2ed43486b5-->
+
+    <string name="request_SourcesLangBasis">https://newsapi.org/v2/sources?language=</string>
+    <!--https://newsapi.org/v2/sources?language=en&apiKey=a631133308204b1ba583dc2ed43486b5-->
+    <!--https://newsapi.org/v2/sources?language=en&country=us&apiKey=a631133308204b1ba583dc2ed43486b5-->
+</resources>

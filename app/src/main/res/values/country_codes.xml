@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="Argentina" translatable="false">ar</string>
+    <string name="Australia" translatable="false">au</string>
+    <string name="Austria" translatable="false">at</string>
+    <string name="Belgium" translatable="false">be</string>
+    <string name="Brazil" translatable="false">br</string>
+    <string name="Bulgaria" translatable="false">bg</string>
+    <string name="Canada" translatable="false">ca</string>
+    <string name="China" translatable="false">cn</string>
+    <string name="Colombia" translatable="false">co</string>
+    <string name="Cuba" translatable="false">cu</string>
+    <string name="CzechRepublic" translatable="false">cz</string>
+    <string name="Egypt" translatable="false"> eg</string>
+    <string name="France" translatable="false">fr</string>
+    <string name="Germany" translatable="false">de</string>
+    <string name="Greece" translatable="false">gr</string>
+    <string name="HongKong" translatable="false">hk</string>
+    <string name="Hungary" translatable="false">hu</string>
+    <string name="India" translatable="false"> in</string>
+    <string name="Indonesia" translatable="false">id</string>
+    <string name="Ireland" translatable="false">ie</string>
+    <string name="Israel" translatable="false">il</string>
+    <string name="Italy" translatable="false">it</string>
+    <string name="Japan" translatable="false">jp</string>
+    <string name="Latvia" translatable="false">lv</string>
+    <string name="Lithuania" translatable="false">lt</string>
+    <string name="Malaysia" translatable="false"> my</string>
+    <string name="Mexico" translatable="false">mx</string>
+    <string name="Morocco" translatable="false">ma</string>
+    <string name="Netherlands" translatable="false">nl</string>
+    <string name="NewZealand" translatable="false">nz</string>
+    <string name="Nigeria" translatable="false">ng</string>
+    <string name="Norway" translatable="false">no</string>
+    <string name="Philippines" translatable="false">ph</string>
+    <string name="Poland" translatable="false">pl</string>
+    <string name="Portugal" translatable="false">pt</string>
+    <string name="Romania" translatable="false">ro</string>
+    <string name="Russia" translatable="false">ru</string>
+    <string name="ArabiaSaudi" translatable="false">sa</string>
+    <string name="Serbia" translatable="false">rs</string>
+    <string name="Singapore" translatable="false">sg</string>
+    <string name="Slovakia" translatable="false">sk</string>
+    <string name="Slovenia" translatable="false">si</string>
+    <string name="SouthAfrica" translatable="false">za</string>
+    <string name="KoreaSouth" translatable="false">kr</string>
+    <string name="Sweden" translatable="false">se</string>
+    <string name="Switzerland" translatable="false">ch</string>
+    <string name="Taiwan" translatable="false">tw</string>
+    <string name="Thailand" translatable="false">th</string>
+    <string name="Turkey" translatable="false">tr</string>
+    <string name="UAE" translatable="false">ae</string>
+    <string name="Ukraine" translatable="false">ua</string>
+    <string name="KingdomUnited" translatable="false">gb</string>
+    <string name="UnitedStates" translatable="false">us</string>
+    <string name="Venuzuela" translatable="false">ve</string>
+</resources>
