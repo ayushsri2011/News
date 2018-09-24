@@ -10,6 +10,15 @@
     <string name="category_sports">sports</string>
     <string name="category_technology">technology</string>
 
+    <string name="label_business">Business</string>
+    <string name="label_entertainment">Entertainment</string>
+    <string name="label_general">General</string>
+    <string name="label_health">Health</string>
+    <string name="label_science">Science</string>
+    <string name="label_sports">Sports</string>
+    <string name="label_technology">Technology</string>
+
+
     <string name="request_LatestNews">https://newsapi.org/v2/top-headlines?country=</string>
     <!--https://newsapi.org/v2/top-headlines?country=us&apiKey=a631133308204b1ba583dc2ed43486b5-->
     <!--https://newsapi.org/v2/top-headlines?country=de&category=business&apiKey=a631133308204b1ba583dc2ed43486b5-->

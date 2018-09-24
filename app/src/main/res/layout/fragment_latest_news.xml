@@ -14,7 +14,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_ltest_news"
+        android:id="@+id/rv_latest_news"
         >
 
     </android.support.v7.widget.RecyclerView>

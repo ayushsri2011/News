@@ -1,8 +1,6 @@
 package com.nightcrawler.news.Fragments;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +18,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nightcrawler.news.Activities.MainActivity;
 import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Articles;
 import com.nightcrawler.news.R;
@@ -42,7 +39,7 @@ public class SearchFragment extends Fragment {
 
 
         final View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
-        rv = rootView.findViewById(R.id.rv_ltest_news);
+        rv = rootView.findViewById(R.id.rv_latest_news);
 
         Resources res = getActivity().getResources();
         String URL = res.getString(R.string.request_LatestNews);
@@ -61,7 +58,7 @@ public class SearchFragment extends Fragment {
                 rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
                 if (articles != null)
-                    rv.setAdapter(new NewsAdapter(getActivity(), articles));
+                    rv.setAdapter(new NewsAdapter(getActivity()));
 //                    Log.d("TEST", "Not null");
             }
         }, new Response.ErrorListener() {

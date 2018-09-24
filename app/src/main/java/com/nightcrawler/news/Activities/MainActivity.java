@@ -1,32 +1,20 @@
 package com.nightcrawler.news.Activities;
 
 import android.content.DialogInterface;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.nightcrawler.news.DataObjects.Article;
-import com.nightcrawler.news.DataObjects.Articles;
+import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
+import com.nightcrawler.news.Fragments.SearchFragment;
 import com.nightcrawler.news.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigation;
     FragmentManager fragmentManager = getSupportFragmentManager();
     Fragment frag = null;
+    LatestNewsFragment latestNewsFragment;
+    SearchFragment searchFragment;
+    CategoryFragment categoryFragment;
     int doOnce = 0;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,53 +60,71 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            selectFragment(navigation.getMenu().getItem(0));
+        selectFragment(navigation.getMenu().getItem(1));
     }
 
     private void selectFragment(MenuItem item) {
 
         if(doOnce==0)
         {
-            frag=new LatestNewsFragment();
+//            latestNewsFragment=new LatestNewsFragment();
+//            fragmentManager.beginTransaction()
+//                    .add(R.id.lay_fragment, latestNewsFragment).commit();
+
+            categoryFragment=new CategoryFragment();
             fragmentManager.beginTransaction()
-                    .add(R.id.lay_fragment, frag).commit();
+                    .add(R.id.lay_fragment, categoryFragment).commit();
             doOnce++;
 
         }
         else
         {
 
-        // init corresponding fragment
-        switch (item.getItemId()) {
-            case R.id.navigation_home:
-                frag=new LatestNewsFragment();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.lay_fragment, frag).commit();
-                break;
-            case R.id.navigation_dashboard:
-                frag=new LatestNewsFragment();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.lay_fragment, frag).commit();
-                break;
-            case R.id.navigation_notifications:
-                frag=new LatestNewsFragment();
+            // init corresponding fragment
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+//                frag=new LatestNewsFragment();
                     fragmentManager.beginTransaction()
-                            .replace(R.id.lay_fragment, frag).commit();
-                break;
+                            .replace(R.id.lay_fragment, latestNewsFragment).commit();
+                    break;
+                case R.id.navigation_dashboard:
+                    if(categoryFragment==null) {
+                        categoryFragment = new CategoryFragment();
+                        fragmentManager.beginTransaction()
+                                .add(R.id.lay_fragment, categoryFragment).commit();
+                    }
+                    else
+                    {
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.lay_fragment, categoryFragment).commit();
+                    }
+                    break;
+                case R.id.navigation_notifications:
+                    if(searchFragment==null) {
+                        searchFragment = new SearchFragment();
+                        fragmentManager.beginTransaction()
+                                .add(R.id.lay_fragment, searchFragment).commit();
+                    }
+                    else
+                    {
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.lay_fragment, searchFragment).commit();
+                    }
+                    break;
+            }
+
+            // update selected item
+            mSelectedItem = item.getItemId();
+
+            // uncheck the other items.
+            for (int i = 0; i < navigation.getMenu().size(); i++) {
+                MenuItem menuItem = navigation.getMenu().getItem(i);
+                menuItem.setChecked(menuItem.getItemId() == item.getItemId());
+            }
+
+            updateToolbarText(item.getTitle());
+
         }
-
-        // update selected item
-        mSelectedItem = item.getItemId();
-
-        // uncheck the other items.
-        for (int i = 0; i < navigation.getMenu().size(); i++) {
-            MenuItem menuItem = navigation.getMenu().getItem(i);
-            menuItem.setChecked(menuItem.getItemId() == item.getItemId());
-        }
-
-        updateToolbarText(item.getTitle());
-
-    }
     }
 
     private void updateToolbarText(CharSequence text) {
@@ -130,28 +139,28 @@ public class MainActivity extends AppCompatActivity {
         MenuItem homeItem = navigation.getMenu().getItem(0);
         if (mSelectedItem != homeItem.getItemId())
             selectFragment(homeItem);
+        else {
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+            mBuilder.setTitle("Exit App?");
 
+            mBuilder.setCancelable(true);
+            mBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    finish();
+                }
+            });
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        mBuilder.setTitle("Exit App?");
+            mBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
 
-        mBuilder.setCancelable(true);
-        mBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int which) {
-                finish();
-            }
-        });
-
-        mBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        AlertDialog mDialog = mBuilder.create();
-        mDialog.show();
+            AlertDialog mDialog = mBuilder.create();
+            mDialog.show();
+        }
     }
 
 }
