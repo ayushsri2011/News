@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/search_text"
+            android:text="@string/enter_text_to_search_through_articles" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</ScrollView>
