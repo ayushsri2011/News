@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private int mSelectedItem;
     BottomNavigationView navigation;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    Fragment frag = null;
+    //    Fragment frag = null;
     LatestNewsFragment latestNewsFragment;
     SearchFragment searchFragment;
     CategoryFragment categoryFragment;
@@ -60,53 +59,43 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        selectFragment(navigation.getMenu().getItem(1));
+        selectFragment(navigation.getMenu().getItem(0));
     }
 
     private void selectFragment(MenuItem item) {
 
-        if(doOnce==0)
-        {
-//            latestNewsFragment=new LatestNewsFragment();
-//            fragmentManager.beginTransaction()
-//                    .add(R.id.lay_fragment, latestNewsFragment).commit();
-
-            categoryFragment=new CategoryFragment();
+        if (doOnce == 0) {
+            latestNewsFragment = new LatestNewsFragment();
             fragmentManager.beginTransaction()
-                    .add(R.id.lay_fragment, categoryFragment).commit();
+                    .add(R.id.lay_fragment, latestNewsFragment).commit();
+            searchFragment = new SearchFragment();
+            categoryFragment = new CategoryFragment();
             doOnce++;
 
-        }
-        else
-        {
-
-            // init corresponding fragment
+        } else {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                frag=new LatestNewsFragment();
                     fragmentManager.beginTransaction()
                             .replace(R.id.lay_fragment, latestNewsFragment).commit();
                     break;
+
                 case R.id.navigation_dashboard:
-                    if(categoryFragment==null) {
+                    if (categoryFragment == null) {
                         categoryFragment = new CategoryFragment();
                         fragmentManager.beginTransaction()
                                 .add(R.id.lay_fragment, categoryFragment).commit();
-                    }
-                    else
-                    {
+                    } else {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.lay_fragment, categoryFragment).commit();
                     }
                     break;
+
                 case R.id.navigation_notifications:
-                    if(searchFragment==null) {
+                    if (searchFragment == null) {
                         searchFragment = new SearchFragment();
                         fragmentManager.beginTransaction()
                                 .add(R.id.lay_fragment, searchFragment).commit();
-                    }
-                    else
-                    {
+                    } else {
                         fragmentManager.beginTransaction()
                                 .replace(R.id.lay_fragment, searchFragment).commit();
                     }
@@ -122,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 menuItem.setChecked(menuItem.getItemId() == item.getItemId());
             }
 
-            updateToolbarText(item.getTitle());
+//            updateToolbarText(item.getTitle());
 
         }
     }
@@ -137,9 +126,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         MenuItem homeItem = navigation.getMenu().getItem(0);
-        if (mSelectedItem != homeItem.getItemId())
+        if (mSelectedItem != homeItem.getItemId()) {
             selectFragment(homeItem);
-        else {
+            navigation.setSelectedItemId(R.id.navigation_home);
+        } else {
             AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
             mBuilder.setTitle("Exit App?");
 

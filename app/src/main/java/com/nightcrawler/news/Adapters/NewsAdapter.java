@@ -89,7 +89,6 @@ package com.nightcrawler.news.Adapters;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
         import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -99,8 +98,8 @@ package com.nightcrawler.news.Adapters;
         import com.bumptech.glide.Glide;
         import com.nightcrawler.news.Activities.ArticleReadActivity;
         import com.nightcrawler.news.DataObjects.Article;
-        import com.nightcrawler.news.DataObjects.Articles;
         import com.nightcrawler.news.R;
+        import com.squareup.picasso.Picasso;
 
         import java.util.List;
 
@@ -118,8 +117,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_card_layout, parent, false);
         return new MyViewHolder(view);
     }
@@ -130,7 +130,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         holder.article_description.setText(articles.get(position).getTitle());
         Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
-
+        Picasso.get().load(articles.get(position).getUrlToImage()).placeholder(R.drawable.news).into(holder.card_iv);
     }
 
     @Override
@@ -155,9 +155,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         public void onClick(View view) {
             int pos = getAdapterPosition();
             Intent intent = new Intent(context, ArticleReadActivity.class);
-            Bundle args = new Bundle();
-            args.putParcelable("ARTICLE", articles.get(pos));
-            intent.putExtras(args);
+            intent.putExtra("url",articles.get(pos).getUrl());
+//            Bundle args = new Bundle();
+//            args.putParcelable("ARTICLE", articles.get(pos));
+//            intent.putExtras(args);
             context.startActivity(intent);
         }
     }

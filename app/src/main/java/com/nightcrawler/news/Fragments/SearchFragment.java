@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -19,13 +21,22 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nightcrawler.news.Adapters.NewsAdapter;
+import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.DataObjects.Articles;
 import com.nightcrawler.news.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchFragment extends Fragment {
     private RecyclerView rv;
-
+    private TextView search_text;
+    private Button refresh;
     //    private Context context;
     public SearchFragment() {
         // Required empty public constructor
@@ -38,39 +49,63 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
-        final View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
-        rv = rootView.findViewById(R.id.rv_latest_news);
-
+        final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        rv = rootView.findViewById(R.id.rv_search);
+        final NewsAdapter newsAdapter = new NewsAdapter(getContext());
+        rv.setAdapter(newsAdapter);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        search_text = rootView.findViewById(R.id.search_text);
+        refresh = rootView.findViewById(R.id.refresh);
         Resources res = getActivity().getResources();
         String URL = res.getString(R.string.request_LatestNews);
         URL = URL + "us&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-        StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
+        final String finalURL = URL;
+        refresh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(String response) {
-                Log.d("TEST", response);
-
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-                Articles articles = gson.fromJson(response, Articles.class);
+            public void onClick(View view) {
 
 
-                rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                if (articles != null)
-                    rv.setAdapter(new NewsAdapter(getActivity()));
+                StringRequest stringRequest = new StringRequest(finalURL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new GsonBuilder().create();
+                        List<Article> articleList = new ArrayList<>();
+                        JSONObject responseJson = null;
+                        try {
+                            responseJson = new JSONObject(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        JSONArray articlesList = responseJson.optJSONArray("articles");
+                        if (articlesList == null) {
+                            return;
+                        }
+
+                        for (int i = 0; i < articlesList.length(); i++) {
+                            Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                            articleList.add(article);
+                        }
+                        if (articleList.size() > 0) {
+                            newsAdapter.setDataSource(articleList);
+                        }
+
 //                    Log.d("TEST", "Not null");
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
-                Log.d("TEST","FAILURE");
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                        Log.d("TEST","FAILURE");
+                    }
+                });
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+                requestQueue.add(stringRequest);
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        requestQueue.add(stringRequest);
 
         return rootView;
     }

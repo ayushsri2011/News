@@ -16,7 +16,8 @@
             android:layout_margin="8dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/news" />
+            android:src="@drawable/news"
+            android:contentDescription="@string/article_image" />
 
         <TextView
             android:id="@+id/article_description"
