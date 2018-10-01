@@ -129,8 +129,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
         holder.article_description.setText(articles.get(position).getTitle());
-        Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
+        holder.article_author.setText(articles.get(position).getAuthor());
+//        Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
         Picasso.get().load(articles.get(position).getUrlToImage()).placeholder(R.drawable.news).into(holder.card_iv);
+
     }
 
     @Override
@@ -143,12 +145,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         private TextView article_description;
         private ImageView card_iv;
+        private TextView article_author;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             card_iv = itemView.findViewById(R.id.card_iv);
             article_description = itemView.findViewById(R.id.article_description);
+            article_author = itemView.findViewById(R.id.article_author);
         }
 
         @Override
@@ -156,6 +160,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             int pos = getAdapterPosition();
             Intent intent = new Intent(context, ArticleReadActivity.class);
             intent.putExtra("url",articles.get(pos).getUrl());
+            intent.putExtra("author",articles.get(pos).getAuthor());
 //            Bundle args = new Bundle();
 //            args.putParcelable("ARTICLE", articles.get(pos));
 //            intent.putExtras(args);

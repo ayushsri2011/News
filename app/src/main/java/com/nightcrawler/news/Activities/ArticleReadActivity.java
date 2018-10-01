@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nightcrawler.news.R;
@@ -16,7 +19,7 @@ import java.util.Objects;
 
 public class ArticleReadActivity extends AppCompatActivity {
     WebView article_webView;
-    TextView article_title;
+    ProgressBar pb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,18 +27,33 @@ public class ArticleReadActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String url=intent.getStringExtra("url");
-//        Bundle args = intent.getExtras();
-//        assert args != null;
-//        Article article=args.getParcelable("ARTICLE");
-//        Log.d("TEST2",""+article.getUrl());
+        String author=intent.getStringExtra("author");
+
+
         article_webView=(WebView)findViewById(R.id.article_webView);
-        article_title=(TextView)findViewById(R.id.article_title);
-        article_title.setText("TEST");
+        pb=(ProgressBar)findViewById(R.id.pb);
+        pb.setVisibility(View.VISIBLE);
+
+
         article_webView.loadUrl(url);
+        article_webView.setWebViewClient(new WebViewClient() {
+
+            public void onPageFinished(WebView view, String url) {
+                // do your stuff here
+                pb.setVisibility(View.INVISIBLE);
+            }
+        });
+
         WebSettings webSettings = article_webView.getSettings();
-        webSettings.supportZoom();
+
+
+
+
+
+
+//        webSettings.supportZoom();
 //        webSettings.getBuiltInZoomControls();
-        webSettings.setJavaScriptEnabled(true);
+//        webSettings.setJavaScriptEnabled(true);
 
 //        String newUserAgent = article_webView.getSettings().getUserAgentString();
 //        String ua = article_webView.getSettings().getUserAgentString();

@@ -2,20 +2,22 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:background="#a26a6a">
+    android:background="#a26a6a"
+    android:padding="@dimen/activity_vertical_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/activity_card_padding">
 
         <ImageView
             android:id="@+id/card_iv"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             android:src="@drawable/news"
             android:contentDescription="@string/article_image" />
 
@@ -23,9 +25,21 @@
             android:id="@+id/article_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:text="@string/placeholder" />
 
+        <TextView
+            android:id="@+id/article_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:text="@string/placeholder" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

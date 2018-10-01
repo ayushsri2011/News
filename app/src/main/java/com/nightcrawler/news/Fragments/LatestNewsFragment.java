@@ -21,6 +21,7 @@ import com.google.gson.GsonBuilder;
 import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.R;
+import com.nightcrawler.news.Utilities.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +84,10 @@ public class LatestNewsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                if(Utility.checkConnectivity(getContext()))
+                    Toast.makeText(getActivity(), "No internet conection", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(getActivity(), "Failure to retrieve news", Toast.LENGTH_SHORT).show();
                 Log.d("TEST", "FAILURE");
             }
         });

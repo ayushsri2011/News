@@ -22,8 +22,6 @@ public class newsContract {
         public static final String title = "title";
         public static final String author = "author";
         public static final String urlToImage = "urlToImage";
-//        public static final String MOVIE_POSTERPATH = "posterPath";
-//        public static final String MOVIE_CATEGORY = "category";
         public static final String MOVIE_TIMESTAMP = "timestamp";
 
 
