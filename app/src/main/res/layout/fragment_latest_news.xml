@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.LatestNewsFragment">
+    tools:context=".Fragments.LatestNewsFragment"
+    android:background="#130505">
 
     <!-- TODO: Update blank fragment layout -->
     <!--<TextView-->
@@ -14,6 +15,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv_latest_news"/>
+        android:id="@+id/rv_latest_news"
+        android:background="#130505"/>
 
 </FrameLayout>

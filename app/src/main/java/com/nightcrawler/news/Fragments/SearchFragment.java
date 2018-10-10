@@ -55,6 +55,7 @@ public class SearchFragment extends Fragment {
         rv.setAdapter(newsAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         search_text = rootView.findViewById(R.id.search_text);
+        String text=(String)search_text.getText();
         refresh = rootView.findViewById(R.id.refresh);
         Resources res = getActivity().getResources();
         String URL = res.getString(R.string.request_LatestNews);

@@ -30,11 +30,17 @@ import java.util.List;
 
 
 public class CategoryFragment extends Fragment {
-    private RecyclerView rv_bus;
-    private RecyclerView rv_ent;
-    private RecyclerView rv_general;
+    private RecyclerView rv_bus, rv_ent, rv_general, rv_technology, rv_sports, rv_health, rv_science;
+     NewsAdapter newsAdapter_bus;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_ent;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_general;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_health;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_science;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_sports;// = new NewsAdapter(getContext());
+     NewsAdapter newsAdapter_technology;// = new NewsAdapter(getContext());
+
     private RequestQueue requestQueue;
-    //    private Context context;
+
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -45,39 +51,79 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
 
         requestQueue = Volley.newRequestQueue(getActivity());
+
         View rootView = inflater.inflate(R.layout.fragment_category, container, false);
+
         rv_bus = rootView.findViewById(R.id.rv_business);
-        rv_bus.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, true));
+        rv_bus.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        rv_ent=rootView.findViewById(R.id.rv_ent);
-        rv_ent.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, true));
+        rv_ent = rootView.findViewById(R.id.rv_ent);
+        rv_ent.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-        rv_general=rootView.findViewById(R.id.rv_general);
-        rv_general.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, true));
+        rv_general = rootView.findViewById(R.id.rv_general);
+        rv_general.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-//        Resources res = getActivity().getResources();
-//        URL = res.getString(R.string.request_LatestNews);
+        rv_health = rootView.findViewById(R.id.rv_health);
+        rv_health.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        rv_science = rootView.findViewById(R.id.rv_science);
+        rv_science.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        rv_sports = rootView.findViewById(R.id.rv_sports);
+        rv_sports.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        rv_technology = rootView.findViewById(R.id.rv_technology);
+        rv_technology.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+
+          newsAdapter_bus = new NewsAdapter(getContext());
+          newsAdapter_ent = new NewsAdapter(getContext());
+          newsAdapter_general = new NewsAdapter(getContext());
+          newsAdapter_health = new NewsAdapter(getContext());
+          newsAdapter_science = new NewsAdapter(getContext());
+          newsAdapter_sports = new NewsAdapter(getContext());
+          newsAdapter_technology = new NewsAdapter(getContext());
+
+
+
+
+
+
+//        Resources res = getActivity().getResources(); URL = res.getString(R.string.request_LatestNews);
+
         String URL_bus = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_ent="https://newsapi.org/v2/top-headlines?country=in&category=entertainment&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_general="https://newsapi.org/v2/top-headlines?country=in&category=general&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-//  Articles arti = new Articles();
+        String URL_ent = "https://newsapi.org/v2/top-headlines?country=in&category=entertainment&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_general = "https://newsapi.org/v2/top-headlines?country=in&category=general&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_health = "https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_science = "https://newsapi.org/v2/top-headlines?country=in&category=science&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_sports = "https://newsapi.org/v2/top-headlines?country=in&category=sports&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_technology = "https://newsapi.org/v2/top-headlines?country=in&category=technology&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-        final NewsAdapter newsAdapter_bus = new NewsAdapter(getContext());
         rv_bus.setAdapter(newsAdapter_bus);
-
-        final NewsAdapter newsAdapter_ent = new NewsAdapter(getContext());
         rv_ent.setAdapter(newsAdapter_ent);
-
-        final NewsAdapter newsAdapter_general = new NewsAdapter(getContext());
         rv_general.setAdapter(newsAdapter_general);
+        rv_health.setAdapter(newsAdapter_health);
+        rv_science.setAdapter(newsAdapter_science);
+        rv_sports.setAdapter(newsAdapter_sports);
+        rv_technology.setAdapter(newsAdapter_technology);
+
+        ArrayList<String> requestURL = new ArrayList<>();
+        requestURL.add(URL_bus);
+        requestURL.add(URL_ent);
+        requestURL.add(URL_general);
+        requestURL.add(URL_health);
+        requestURL.add(URL_science);
+        requestURL.add(URL_sports);
+        requestURL.add(URL_technology);
+        requestQueues(requestURL);
+
+        return rootView;
+    }
 
 
+    public void requestQueues(ArrayList<String> requestURL) {
 
-
-
-
-
-        StringRequest stringRequest = new StringRequest(URL_bus, new Response.Listener<String>() {
+        StringRequest stringRequest1 = new StringRequest(requestURL.get(0), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -102,7 +148,7 @@ public class CategoryFragment extends Fragment {
                     newsAdapter_bus.setDataSource(articleList);
                 }
                 rv_bus.scrollToPosition(0);
-                rv_bus.getLayoutManager().scrollToPosition(1);
+                rv_bus.getLayoutManager().scrollToPosition(0);
             }
 
 
@@ -114,7 +160,7 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        StringRequest stringRequest1 = new StringRequest(URL_ent, new Response.Listener<String>() {
+        StringRequest stringRequest2 = new StringRequest(requestURL.get(1), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -139,7 +185,7 @@ public class CategoryFragment extends Fragment {
                     newsAdapter_ent.setDataSource(articleList);
                 }
                 rv_ent.scrollToPosition(0);
-                rv_ent.getLayoutManager().scrollToPosition(1);
+                rv_ent.getLayoutManager().scrollToPosition(0);
             }
 
 
@@ -152,7 +198,7 @@ public class CategoryFragment extends Fragment {
         });
 
 
-        StringRequest stringRequest3 = new StringRequest(URL_general, new Response.Listener<String>() {
+        StringRequest stringRequest3 = new StringRequest(requestURL.get(2), new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -177,7 +223,113 @@ public class CategoryFragment extends Fragment {
                     newsAdapter_general.setDataSource(articleList);
                 }
                 rv_general.scrollToPosition(0);
-                rv_general.getLayoutManager().scrollToPosition(1);
+                rv_general.getLayoutManager().scrollToPosition(0);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                Log.d("TEST", "FAILURE");
+            }
+        });
+
+
+        StringRequest stringRequest4 = new StringRequest(requestURL.get(3), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new GsonBuilder().create();
+                List<Article> articleList = new ArrayList<>();
+                JSONObject responseJson = null;
+                try {
+                    responseJson = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray articlesList = responseJson.optJSONArray("articles");
+                if (articlesList == null) {
+                    return;
+                }
+
+                for (int i = 0; i < articlesList.length(); i++) {
+                    Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                    articleList.add(article);
+                }
+                if (articleList.size() > 0) {
+                    newsAdapter_health.setDataSource(articleList);
+                }
+                rv_health.scrollToPosition(0);
+                rv_health.getLayoutManager().scrollToPosition(0);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                Log.d("TEST", "FAILURE");
+            }
+        });
+
+        StringRequest stringRequest5 = new StringRequest(requestURL.get(4), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new GsonBuilder().create();
+                List<Article> articleList = new ArrayList<>();
+                JSONObject responseJson = null;
+                try {
+                    responseJson = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray articlesList = responseJson.optJSONArray("articles");
+                if (articlesList == null) {
+                    return;
+                }
+
+                for (int i = 0; i < articlesList.length(); i++) {
+                    Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                    articleList.add(article);
+                }
+                if (articleList.size() > 0) {
+                    newsAdapter_science.setDataSource(articleList);
+                }
+                rv_science.scrollToPosition(0);
+                rv_science.getLayoutManager().scrollToPosition(0);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                Log.d("TEST", "FAILURE");
+            }
+        });
+
+        StringRequest stringRequest6 = new StringRequest(requestURL.get(5), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new GsonBuilder().create();
+                List<Article> articleList = new ArrayList<>();
+                JSONObject responseJson = null;
+                try {
+                    responseJson = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray articlesList = responseJson.optJSONArray("articles");
+                if (articlesList == null) {
+                    return;
+                }
+
+                for (int i = 0; i < articlesList.length(); i++) {
+                    Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                    articleList.add(article);
+                }
+                if (articleList.size() > 0) {
+                    newsAdapter_sports.setDataSource(articleList);
+                }
+                rv_sports.scrollToPosition(0);
+                rv_sports.getLayoutManager().scrollToPosition(0);
             }
 
 
@@ -189,17 +341,50 @@ public class CategoryFragment extends Fragment {
             }
         });
 
+        StringRequest stringRequest7 = new StringRequest(requestURL.get(6), new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new GsonBuilder().create();
+                List<Article> articleList = new ArrayList<>();
+                JSONObject responseJson = null;
+                try {
+                    responseJson = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONArray articlesList = responseJson.optJSONArray("articles");
+                if (articlesList == null) {
+                    return;
+                }
+
+                for (int i = 0; i < articlesList.length(); i++) {
+                    Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                    articleList.add(article);
+                }
+                if (articleList.size() > 0) {
+                    newsAdapter_technology.setDataSource(articleList);
+                }
+                rv_technology.scrollToPosition(0);
+                rv_technology.getLayoutManager().scrollToPosition(0);
+            }
 
 
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                Log.d("TEST", "FAILURE");
+            }
+        });
 
-
-
-
-        requestQueue.add(stringRequest);
         requestQueue.add(stringRequest1);
+        requestQueue.add(stringRequest2);
         requestQueue.add(stringRequest3);
-
-        return rootView;
+        requestQueue.add(stringRequest4);
+        requestQueue.add(stringRequest5);
+        requestQueue.add(stringRequest6);
+        requestQueue.add(stringRequest7);
     }
 
 }

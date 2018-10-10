@@ -6,48 +6,127 @@
     android:fadeScrollbars="true"
     android:orientation="vertical"
     android:scrollbars="vertical"
-    tools:context=".Fragments.CategoryFragment">
+    tools:context=".Fragments.CategoryFragment"
+    android:background="#726e6e">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#ffff">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_business" />
+            android:text="@string/label_business"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_business"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:orientation="horizontal" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_entertainment" />
+            android:text="@string/label_entertainment"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_ent"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_general" />
+            android:text="@string/label_general"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
 
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_general"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_health"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_health"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_health"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_science"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_science"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_sports"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_technology"
+            android:textColor="#ffffff"
+            android:background="#130505"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:textStyle="bold"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_technology"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal" />
 
     </LinearLayout>

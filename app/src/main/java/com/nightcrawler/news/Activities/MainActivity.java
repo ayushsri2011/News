@@ -1,6 +1,8 @@
 package com.nightcrawler.news.Activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,8 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
@@ -34,15 +38,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+//                    mTextMessage.setText(R.string.title_home);
                     selectFragment(item);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_topic);
+//                    mTextMessage.setText(R.string.title_topic);
                     selectFragment(item);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_search);
+//                    mTextMessage.setText(R.string.title_search);
                     selectFragment(item);
                     return true;
             }
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         selectFragment(navigation.getMenu().getItem(0));
+        SharedPreferences sharedPreferences = getSharedPreferences("country", 0);
+        String country = sharedPreferences.getString("country", "us");
+        Toast.makeText(this, " "+country, Toast.LENGTH_SHORT).show();
     }
 
     private void selectFragment(MenuItem item) {
@@ -153,4 +160,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+//        if (Utils.checkConnectivity(getBaseContext()))
+        ActionBar actionBar = getSupportActionBar();
+
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        // When the home button is pressed, take the user back to the VisualizerActivity
+        if (id == R.id.action_settings) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
