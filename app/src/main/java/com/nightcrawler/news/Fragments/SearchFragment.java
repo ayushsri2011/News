@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment {
     private RecyclerView rv;
     private TextView search_text;
     private Button refresh;
+    NewsAdapter newsAdapter;
     //    private Context context;
     public SearchFragment() {
         // Required empty public constructor
@@ -51,26 +52,31 @@ public class SearchFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         rv = rootView.findViewById(R.id.rv_search);
-        final NewsAdapter newsAdapter = new NewsAdapter(getContext());
+         newsAdapter = new NewsAdapter(getContext());
         rv.setAdapter(newsAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        search_text = rootView.findViewById(R.id.search_text);
-        String text=(String)search_text.getText();
-        refresh = rootView.findViewById(R.id.refresh);
-        Resources res = getActivity().getResources();
-        String URL = res.getString(R.string.request_LatestNews);
-        URL = URL + "us&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-        final String finalURL = URL;
+        search_text = rootView.findViewById(R.id.search_text);
+
+        refresh = rootView.findViewById(R.id.refresh);
+//        Resources res = getActivity().getResources();
+
+        final String finalURL = "https://newsapi.org/v2/top-headlines?q=";
+
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String text=search_text.getText().toString();
+//                finalURL = {"https://newsapi.org/v2/top-headlines?q="};
+                String t="https://newsapi.org/v2/top-headlines?q=";
+                t +=text;
+                t +="&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-
-
-                StringRequest stringRequest = new StringRequest(finalURL, new Response.Listener<String>() {
+                StringRequest stringRequest = new StringRequest(t, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
+
                         Gson gson = new GsonBuilder().create();
                         List<Article> articleList = new ArrayList<>();
                         JSONObject responseJson = null;
