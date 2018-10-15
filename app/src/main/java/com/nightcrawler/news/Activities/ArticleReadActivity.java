@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,13 +21,16 @@ import java.util.Objects;
 public class ArticleReadActivity extends AppCompatActivity {
     WebView article_webView;
     ProgressBar pb;
+    Button share;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_read);
+        share=(Button)findViewById(R.id.share);
 
         Intent intent = getIntent();
-        String url=intent.getStringExtra("url");
+        final String url=intent.getStringExtra("url");
         String author=intent.getStringExtra("author");
 
 
@@ -47,7 +51,15 @@ public class ArticleReadActivity extends AppCompatActivity {
         WebSettings webSettings = article_webView.getSettings();
 
 
-
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Shared using NewsApp  "+url);
+                startActivity(Intent.createChooser(shareIntent, "Share link using"));
+            }
+        });
 
 
 
