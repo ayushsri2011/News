@@ -43,7 +43,6 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         rv = rootView.findViewById(R.id.rv_search);
@@ -52,7 +51,6 @@ public class SearchFragment extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         search_text = rootView.findViewById(R.id.search_text);
         refresh = rootView.findViewById(R.id.refresh);
-//        Resources res = getActivity().getResources();
 
         final String finalURL = "https://newsapi.org/v2/top-headlines?q=";
 
@@ -104,8 +102,6 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
-
         return rootView;
     }
-
 }

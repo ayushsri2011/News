@@ -37,7 +37,6 @@ public class LatestNewsFragment extends Fragment {
     public LatestNewsFragment() {
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -47,12 +46,10 @@ public class LatestNewsFragment extends Fragment {
 
         Resources res = getActivity().getResources();
         String URL = res.getString(R.string.request_LatestNews);
-        URL = URL + "us&apiKey=a631133308204b1ba583dc2ed43486b5";
+        URL = URL + "in&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-//        Articles arti = new Articles();
         final NewsAdapter newsAdapter = new NewsAdapter(getContext());
         rv.setAdapter(newsAdapter);
-
 
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
 

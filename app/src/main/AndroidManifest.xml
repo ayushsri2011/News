@@ -32,7 +32,6 @@
             android:authorities="com.nightcrawler.news"
             android:exported="false" />
 
-        <activity android:name=".Activities.SettingsActivity"/>
     </application>
 
 </manifest>
