@@ -32,6 +32,14 @@
             android:authorities="com.nightcrawler.news"
             android:exported="false" />
 
+        <activity
+            android:name=".Activities.PreferencesActivity"
+            android:label="@string/title_activity_preferences"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.BookmarksActivity"
+            android:label="@string/title_activity_bookmarks"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

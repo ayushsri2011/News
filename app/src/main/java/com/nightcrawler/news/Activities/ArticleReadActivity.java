@@ -9,6 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,18 +22,19 @@ import java.util.Objects;
 public class ArticleReadActivity extends AppCompatActivity {
     WebView article_webView;
     ProgressBar pb;
-    Button share;
+    ImageButton share;
+    ImageButton bookmarkArticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_read);
-        share=(Button)findViewById(R.id.share);
+        share=(ImageButton)findViewById(R.id.share);
+        bookmarkArticle=(ImageButton)findViewById(R.id.bookmarkArticle);
 
         Intent intent = getIntent();
         final String url=intent.getStringExtra("url");
         String author=intent.getStringExtra("author");
-
 
         article_webView=(WebView)findViewById(R.id.article_webView);
         pb=(ProgressBar)findViewById(R.id.pb);
@@ -61,7 +63,12 @@ public class ArticleReadActivity extends AppCompatActivity {
             }
         });
 
-
+        bookmarkArticle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bookmarkArticle.setImageResource(R.drawable.ic_bookmark_black_24dp);
+            }
+        });
 
 //        webSettings.supportZoom();
 //        webSettings.getBuiltInZoomControls();
