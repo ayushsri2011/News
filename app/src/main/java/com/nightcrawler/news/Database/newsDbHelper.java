@@ -27,7 +27,7 @@ public class newsDbHelper extends SQLiteOpenHelper {
                 newsContract.newsContractEntry.title + " TEXT , " +
                 newsContract.newsContractEntry.author + " TEXT , " +
                 newsContract.newsContractEntry.urlToImage  + " TEXT , "+
-                newsContract.newsContractEntry.MOVIE_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                newsContract.newsContractEntry.NEWS_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
                 +"); ";
 
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIELIST_TABLE);

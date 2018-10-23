@@ -16,13 +16,13 @@ public class newsContract {
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_TASKS).build();
 
 
-        public static final String TABLE_NAME = "favMovies";
+        public static final String TABLE_NAME = "favNews";
         public static final String publishedAt = "publishedAt";
         public static final String url = "url";
         public static final String title = "title";
         public static final String author = "author";
         public static final String urlToImage = "urlToImage";
-        public static final String MOVIE_TIMESTAMP = "timestamp";
+        public static final String NEWS_TIMESTAMP = "timestamp";
 
 
     }

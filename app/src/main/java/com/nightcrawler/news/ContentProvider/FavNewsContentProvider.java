@@ -111,8 +111,8 @@ public class FavNewsContentProvider extends ContentProvider {
 
         switch (match) {
             case TASK_WITH_ID:
-                String url = uri.getPathSegments().get(1);
-                tasksDeleted = db.delete(TABLE_NAME, "url=" + url, null);
+//                String url = uri.getPathSegments().get(1);
+                tasksDeleted = db.delete(TABLE_NAME, "url=?", selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

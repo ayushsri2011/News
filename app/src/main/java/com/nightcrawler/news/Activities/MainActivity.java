@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
                         // set item as selected to persist highlight
                         menuItem.setChecked(true);
                         switch (menuItem.getItemId()) {
+                            case R.id.Home:
+                                mDrawerLayout.closeDrawers();
+                                return true;
                             case R.id.preferences:
                                 Intent intent = new Intent(MainActivity.this, PreferencesActivity.class);
                                 mDrawerLayout.closeDrawers();

@@ -78,6 +78,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             Intent intent = new Intent(context, ArticleReadActivity.class);
             intent.putExtra("url",articles.get(pos).getUrl());
             intent.putExtra("author",articles.get(pos).getAuthor());
+            intent.putExtra("urlToImage",articles.get(pos).getUrlToImage());
+            intent.putExtra("title",articles.get(pos).getTitle());
+            intent.putExtra("publishedAt",articles.get(pos).getPublishedAt());
 //            Bundle args = new Bundle();
 //            args.putParcelable("ARTICLE", articles.get(pos));
 //            intent.putExtras(args);
