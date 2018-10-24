@@ -42,6 +42,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BookmarksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -55,6 +56,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         rv=(RecyclerView)findViewById(R.id.rv_bookmark_news);
         rv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         newsAdapter = new NewsAdapter(getBaseContext());
@@ -144,5 +146,15 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
 
         newsAdapter.setDataSource(movieList);
         rv.setAdapter(newsAdapter);
+    }
+
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     }
