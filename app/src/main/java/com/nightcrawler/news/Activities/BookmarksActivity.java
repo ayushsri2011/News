@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BookmarksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class BookmarksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int TASK_LOADER_ID = 0;
     private RecyclerView rv;
@@ -52,12 +52,13 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     Cursor cursor;
     Uri uri = newsContract.newsContractEntry.CONTENT_URI;
     NewsAdapter newsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        rv=(RecyclerView)findViewById(R.id.rv_bookmark_news);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        rv = (RecyclerView) findViewById(R.id.rv_bookmark_news);
         rv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         newsAdapter = new NewsAdapter(getBaseContext());
         rv.setAdapter(newsAdapter);
@@ -68,9 +69,9 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
 
         LoaderManager loaderManager = getSupportLoaderManager();
         Loader<String> loader = loaderManager.getLoader(TASK_LOADER_ID);
-        if(loader==null){
+        if (loader == null) {
             loaderManager.initLoader(TASK_LOADER_ID, null, this);
-        }else{
+        } else {
             loaderManager.restartLoader(TASK_LOADER_ID, null, this);
         }
     }
@@ -96,7 +97,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
             public Cursor loadInBackground() {
                 try {
 //                    String[] args={category};
-                    return getContentResolver().query(uri,null,null,null,"timestamp desc");
+                    return getContentResolver().query(uri, null, null, null, "timestamp desc");
                 } catch (Exception e) {
                     Log.e("loadInBackground()ERROR", "Failed to asynchronously load data.");
                     e.printStackTrace();
@@ -108,22 +109,19 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        cursor=data;
+        cursor = data;
         cursor.moveToFirst();
 
-        temp=new ArrayList<Article>();
+        temp = new ArrayList<Article>();
 
-        if(cursor.getCount()==0)
-        {
+        if (cursor.getCount() == 0) {
             Toast.makeText(this, "No favourites set yet", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-        else
-        {
+//            finish();
+        } else {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
 //                Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, Object content
-                Article t=new Article(new Source(),cursor.getString(3),cursor.getString(2),"",cursor.getString(1),cursor.getString(4),cursor.getString(0),new Object());
+                Article t = new Article(new Source(), cursor.getString(3), cursor.getString(2), "", cursor.getString(1), cursor.getString(4), cursor.getString(0), new Object());
 //                t.setPublishedAt(cursor.getString(0));
 //                t.setUrl(cursor.getString(1));
 //                t.setTitle(cursor.getString(2));
@@ -142,6 +140,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
     }
+
     private void populateRecyclerViewValues(ArrayList<Article> movieList) {
 
         newsAdapter.setDataSource(movieList);
@@ -157,4 +156,4 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
                 return super.onOptionsItemSelected(item);
         }
     }
-    }
+}
