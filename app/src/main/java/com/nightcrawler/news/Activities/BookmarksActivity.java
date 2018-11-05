@@ -57,7 +57,8 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmarks);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         rv = (RecyclerView) findViewById(R.id.rv_bookmark_news);
         rv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         newsAdapter = new NewsAdapter(getBaseContext());
@@ -116,7 +117,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
 
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "No favourites set yet", Toast.LENGTH_SHORT).show();
-//            finish();
+            finish();
         } else {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
