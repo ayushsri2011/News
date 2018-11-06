@@ -6,5 +6,8 @@
 
     <color name="color_home">#009688</color>
     <color name="color_search">#2196F3</color>
-    <color name="color_notifications">#9C27B0</color>
+    <!--<color name="color_notifications">#9C27B0</color>-->
+
+    <color name="color_background">#ffffff</color>
+    <color name="color_text">#19181a</color>
 </resources>

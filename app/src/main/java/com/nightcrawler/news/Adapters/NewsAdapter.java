@@ -48,7 +48,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.article_description.setText(articles.get(position).getTitle());
         holder.article_author.setText(articles.get(position).getAuthor());
 //        Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
-        Picasso.get().load(articles.get(position).getUrlToImage()).placeholder(R.drawable.news).into(holder.card_iv);
+        try{
+        if(articles.get(position).getUrlToImage()!=""&&articles.get(position).getUrlToImage()!=" ")
+        Picasso.get()
+                .load(articles.get(position).getUrlToImage())
+                    .placeholder(R.drawable.news).into(holder.card_iv);
+        }catch (Exception e)
+        {
+            holder.card_iv.setImageResource(R.drawable.news);
+        }
+
+
 
     }
 

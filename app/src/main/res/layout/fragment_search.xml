@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SearchFragment"
-    android:background="#ffff">
+    android:background="#ffff"
+    tools:context=".Fragments.SearchFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -18,21 +18,29 @@
             android:orientation="vertical">
 
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:labelFor="@+id/search_text"-->
-                <!--android:text="@string/enter_text_to_search_through_articles" />-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:labelFor="@+id/search_text"-->
+            <!--android:text="@string/enter_text_to_search_through_articles" />-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/color_background"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/search_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="Enter search text"
                 android:inputType="text" />
 
             <Button
+                android:id="@+id/refresh"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:id="@+id/refresh"/>
+                android:layout_gravity="right" />
 
         </LinearLayout>
 
@@ -40,7 +48,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp" />
-
 
 
         <android.support.v7.widget.RecyclerView

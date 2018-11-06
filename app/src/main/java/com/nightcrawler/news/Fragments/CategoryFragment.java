@@ -50,6 +50,8 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        Toast.makeText(getActivity(), "Swipe Across for News", Toast.LENGTH_SHORT).show();
+
         requestQueue = Volley.newRequestQueue(getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_category, container, false);
