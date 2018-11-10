@@ -20,6 +20,11 @@ import com.nightcrawler.news.Database.newsContract;
 import com.nightcrawler.news.Database.newsDbHelper;
 import com.nightcrawler.news.R;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import java.util.Objects;
 
 public class ArticleReadActivity extends AppCompatActivity {
@@ -27,6 +32,7 @@ public class ArticleReadActivity extends AppCompatActivity {
     ImageButton share;    ImageButton bookmarkArticle;
     String url, urlToImage, publishedAt, title, author;
     boolean fav = false;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,57 @@ public class ArticleReadActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+
+
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
+                // Check the LogCat to get your test device ID
+//                .addTestDevice("C04B1BFFB0774708339BC273F8A43708")
+
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+            }
+
+            @Override
+            public void onAdClosed() {
+                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
+
+        mAdView.loadAd(adRequest);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -111,6 +168,43 @@ public class ArticleReadActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void insertFavDb() {
         ContentValues contentValues = new ContentValues();

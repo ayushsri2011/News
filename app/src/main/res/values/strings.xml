@@ -16,4 +16,8 @@
     <string name="settings">Settings</string>
     <string name="title_activity_preferences">PreferencesActivity</string>
     <string name="title_activity_bookmarks">BookmarksActivity</string>
+    <!-- AdMob ad unit IDs -->
+    <string name="admob_app_id">ca-app-pub-3934094758570622~8126903939</string>
+    <string name="banner_home_footer">ca-app-pub-3934094758570622/2255630158</string>
+    <string name="interstitial_full_screen">ca-app-pub-3934094758570622/1521967136</string>
 </resources>
