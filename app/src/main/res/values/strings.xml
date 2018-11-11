@@ -18,6 +18,8 @@
     <string name="title_activity_bookmarks">BookmarksActivity</string>
     <!-- AdMob ad unit IDs -->
     <string name="admob_app_id">ca-app-pub-3934094758570622~8126903939</string>
+    <string name="admob_test_device_id">A16204ACC3E9167AB2293E718D772D8E</string>
     <string name="banner_home_footer">ca-app-pub-3934094758570622/2255630158</string>
+    <string name="banner_home_footer_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_full_screen">ca-app-pub-3934094758570622/1521967136</string>
 </resources>

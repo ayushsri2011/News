@@ -9,27 +9,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.nightcrawler.news.Database.newsContract;
-import com.nightcrawler.news.Database.newsDbHelper;
-import com.nightcrawler.news.R;
-
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.nightcrawler.news.Database.newsContract;
+import com.nightcrawler.news.R;
 
 import java.util.Objects;
 
 public class ArticleReadActivity extends AppCompatActivity {
-    WebView article_webView;    ProgressBar pb;
-    ImageButton share;    ImageButton bookmarkArticle;
+    WebView article_webView;
+    ProgressBar pb;
+    ImageButton share;
+    ImageButton bookmarkArticle;
     String url, urlToImage, publishedAt, title, author;
     boolean fav = false;
     private AdView mAdView;
@@ -38,7 +36,6 @@ public class ArticleReadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_read);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -47,57 +44,8 @@ public class ArticleReadActivity extends AppCompatActivity {
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
 
-
-
-        mAdView = (AdView) findViewById(R.id.adView);
-        mAdView.setAdSize(AdSize.BANNER);
-        mAdView.setAdUnitId(getString(R.string.banner_home_footer));
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-                // Check the LogCat to get your test device ID
-//                .addTestDevice("C04B1BFFB0774708339BC273F8A43708")
-
-
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-            }
-
-            @Override
-            public void onAdClosed() {
-                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdOpened() {
-                super.onAdOpened();
-            }
-        });
-
-        mAdView.loadAd(adRequest);
-
-
-
-
-
-
-
-
-
-
-
-
+        mAdView = findViewById(R.id.adView);
+        createAd();
 
 
         share = (ImageButton) findViewById(R.id.share);
@@ -140,7 +88,7 @@ public class ArticleReadActivity extends AppCompatActivity {
                 String[] selectionArgs = {url};
 
                 Cursor mCount = getContentResolver().query(uri, null, "url=?", selectionArgs, null, null);
-                Toast.makeText(getBaseContext(), "mcount="+mCount.getCount(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "mcount=" + mCount.getCount(), Toast.LENGTH_SHORT).show();
                 if (!fav) {
                     insertFavDb();
                     bookmarkArticle.setImageResource(R.drawable.ic_bookmark_black_24dp);
@@ -159,13 +107,49 @@ public class ArticleReadActivity extends AppCompatActivity {
         String[] selectionArgs = {url};
         Cursor mCount = getContentResolver().query(uri, null, "url=?", selectionArgs, null, null);
 
-        if (Objects.requireNonNull(mCount).getCount()==1) {
+        if (Objects.requireNonNull(mCount).getCount() == 1) {
             bookmarkArticle.setImageResource(R.drawable.ic_bookmark_black_24dp);
             fav = true;
         } else {
             bookmarkArticle.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
             fav = false;
         }
+
+    }
+
+    private void createAd() {
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_test_device_id)).build();
+
+
+//        .addTestDevice("TEST_DEVICE_ID")
+        mAdView.loadAd(adRequest);
+
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+            }
+
+            @Override
+            public void onAdClosed() {
+                Toast.makeText(getApplicationContext(), "Ad is closed!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Toast.makeText(getApplicationContext(), "Ad failed to load! error code: " + errorCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Toast.makeText(getApplicationContext(), "Ad left application!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+        });
 
     }
 
@@ -192,18 +176,6 @@ public class ArticleReadActivity extends AppCompatActivity {
         }
         super.onDestroy();
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void insertFavDb() {
