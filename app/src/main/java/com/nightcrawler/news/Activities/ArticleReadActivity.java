@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.nightcrawler.news.Database.newsContract;
 import com.nightcrawler.news.R;
 
@@ -31,6 +32,7 @@ public class ArticleReadActivity extends AppCompatActivity {
     String url, urlToImage, publishedAt, title, author;
     boolean fav = false;
     private AdView mAdView;
+    InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,22 @@ public class ArticleReadActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_test));
+
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_test_device_id))
+                .build();
+
+        // Load ads into Interstitial Ads
+        mInterstitialAd.loadAd(adRequest);
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+
 
 
         mAdView = findViewById(R.id.adView);
@@ -115,6 +133,12 @@ public class ArticleReadActivity extends AppCompatActivity {
             fav = false;
         }
 
+    }
+
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
     }
 
     private void createAd() {
