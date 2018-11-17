@@ -18,11 +18,11 @@ import java.util.Objects;
 
 import static com.nightcrawler.news.Database.FavNewsContract.FavNewsContractEntry.TABLE_NAME;
 
-public class FavNewsContentProvider extends ContentProvider {
+public class LatestNewsContentProvider extends ContentProvider {
 
     public static final int TASKS = 100;
     public static final int TASK_WITH_ID = 101;
-    private FavNewsDbHelper FavNewsDbHelper;
+    private com.nightcrawler.news.Database.FavNewsDbHelper FavNewsDbHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     public static UriMatcher buildUriMatcher() {

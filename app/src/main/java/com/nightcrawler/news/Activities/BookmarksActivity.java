@@ -32,7 +32,7 @@ import com.google.gson.GsonBuilder;
 import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.DataObjects.Source;
-import com.nightcrawler.news.Database.newsContract;
+import com.nightcrawler.news.Database.FavNewsContract;
 import com.nightcrawler.news.R;
 import com.nightcrawler.news.Utilities.Utility;
 
@@ -50,7 +50,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     private RecyclerView rv;
     ArrayList<Article> temp;
     Cursor cursor;
-    Uri uri = newsContract.newsContractEntry.CONTENT_URI;
+    Uri uri = FavNewsContract.FavNewsContractEntry.CONTENT_URI;
     NewsAdapter newsAdapter;
 
     @Override

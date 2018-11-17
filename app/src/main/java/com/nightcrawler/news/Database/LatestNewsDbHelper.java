@@ -4,15 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class newsDbHelper extends SQLiteOpenHelper {
+public class LatestNewsDbHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "favNews.db";
+    private static final String DATABASE_NAME = "LatestNews.db";
 
     // If you change the database schema, you must increment the database version
     private static final int DATABASE_VERSION = 1;
 
     // Constructor
-    public newsDbHelper(Context context) {
+    public LatestNewsDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -21,14 +21,14 @@ public class newsDbHelper extends SQLiteOpenHelper {
 
         // Create a table to hold waitlist data
         final String SQL_CREATE_MOVIELIST_TABLE = "CREATE TABLE "
-              + newsContract.newsContractEntry.TABLE_NAME + " (" +
-                newsContract.newsContractEntry.publishedAt + " TEXT , " +
-                newsContract.newsContractEntry.url + " TEXT  , " +
-                newsContract.newsContractEntry.title + " TEXT , " +
-                newsContract.newsContractEntry.author + " TEXT , " +
-                newsContract.newsContractEntry.urlToImage  + " TEXT , "+
-                newsContract.newsContractEntry.NEWS_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-                +"); ";
+                + FavNewsContract.FavNewsContractEntry.TABLE_NAME + " (" +
+                FavNewsContract.FavNewsContractEntry.publishedAt + " TEXT , " +
+                FavNewsContract.FavNewsContractEntry.url + " TEXT  , " +
+                FavNewsContract.FavNewsContractEntry.title + " TEXT , " +
+                FavNewsContract.FavNewsContractEntry.author + " TEXT , " +
+                FavNewsContract.FavNewsContractEntry.urlToImage + " TEXT , " +
+                FavNewsContract.FavNewsContractEntry.NEWS_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                + "); ";
 
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIELIST_TABLE);
     }
@@ -39,7 +39,7 @@ public class newsDbHelper extends SQLiteOpenHelper {
         // DATABASE_VERSION the table will be dropped.
         // In a production app, this method might be modified to ALTER the table
         // instead of dropping it, so that existing data is not deleted.
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + newsContract.newsContractEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + FavNewsContract.FavNewsContractEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

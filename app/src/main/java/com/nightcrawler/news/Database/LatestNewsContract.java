@@ -3,14 +3,14 @@ package com.nightcrawler.news.Database;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class newsContract {
+public class LatestNewsContract {
 
     public static final String AUTHORITY = "com.nightcrawler.news";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + AUTHORITY);
-    public static final String PATH_TASKS = "favNews";
+    public static final String PATH_TASKS = "LatestNews";
 
 
-    public static final class newsContractEntry implements BaseColumns {
+    public static final class FavNewsContractEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_TASKS).build();
