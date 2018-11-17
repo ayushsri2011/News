@@ -38,6 +38,12 @@
             android:exported="false"
             tools:ignore="InnerclassSeparator" />
 
+        <!--<provider-->
+            <!--android:name=".ContentProvider.LatestNewsContentProvider"-->
+            <!--android:authorities="com.nightcrawler.news"-->
+            <!--android:exported="false"-->
+            <!--tools:ignore="InnerclassSeparator" />-->
+
         <activity
             android:name=".Activities.PreferencesActivity"
             android:label="@string/title_activity_preferences"

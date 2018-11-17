@@ -11,18 +11,18 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.nightcrawler.news.Database.FavNewsContract;
-import com.nightcrawler.news.Database.FavNewsDbHelper;
+import com.nightcrawler.news.Database.LatestNewsContract;
+import com.nightcrawler.news.Database.LatestNewsDbHelper;
 
 import java.util.Objects;
 
-import static com.nightcrawler.news.Database.FavNewsContract.FavNewsContractEntry.TABLE_NAME;
+import static com.nightcrawler.news.Database.LatestNewsContract.LatestNewsContractEntry.TABLE_NAME;
 
 public class LatestNewsContentProvider extends ContentProvider {
 
-    public static final int TASKS = 100;
-    public static final int TASK_WITH_ID = 101;
-    private com.nightcrawler.news.Database.FavNewsDbHelper FavNewsDbHelper;
+    public static final int TASKS = 200;
+    public static final int TASK_WITH_ID = 201;
+    private com.nightcrawler.news.Database.LatestNewsDbHelper LatestNewsDbHelper;
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     public static UriMatcher buildUriMatcher() {
@@ -30,8 +30,8 @@ public class LatestNewsContentProvider extends ContentProvider {
         // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        uriMatcher.addURI(FavNewsContract.AUTHORITY, FavNewsContract.PATH_TASKS, TASKS);
-        uriMatcher.addURI(FavNewsContract.AUTHORITY, FavNewsContract.PATH_TASKS + "/#", TASK_WITH_ID);
+        uriMatcher.addURI(LatestNewsContract.AUTHORITY, LatestNewsContract.PATH_TASKS, TASKS);
+        uriMatcher.addURI(LatestNewsContract.AUTHORITY, LatestNewsContract.PATH_TASKS + "/#", TASK_WITH_ID);
 
         return uriMatcher;
     }
@@ -40,13 +40,13 @@ public class LatestNewsContentProvider extends ContentProvider {
     public boolean onCreate() {
 
         Context context = getContext();
-        FavNewsDbHelper = new FavNewsDbHelper(context);
+        LatestNewsDbHelper = new LatestNewsDbHelper(context);
         return true;
     }
 
 
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        final SQLiteDatabase db = FavNewsDbHelper.getWritableDatabase();
+        final SQLiteDatabase db = LatestNewsDbHelper.getWritableDatabase();
 
         int match = sUriMatcher.match(uri);
         Uri returnUri;
@@ -55,7 +55,7 @@ public class LatestNewsContentProvider extends ContentProvider {
             case TASKS:
                 long id = db.insert(TABLE_NAME, null, values);
                 if (id > 0) {
-                    returnUri = ContentUris.withAppendedId(FavNewsContract.FavNewsContractEntry.CONTENT_URI, id);
+                    returnUri = ContentUris.withAppendedId(LatestNewsContract.LatestNewsContractEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
@@ -73,7 +73,7 @@ public class LatestNewsContentProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
-        final SQLiteDatabase db = FavNewsDbHelper.getReadableDatabase();
+        final SQLiteDatabase db = LatestNewsDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor retCursor;
 
@@ -105,7 +105,7 @@ public class LatestNewsContentProvider extends ContentProvider {
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 
 
-        final SQLiteDatabase db = FavNewsDbHelper.getWritableDatabase();
+        final SQLiteDatabase db = LatestNewsDbHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         int tasksDeleted; // starts as 0
 

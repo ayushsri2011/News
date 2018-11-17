@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.nightcrawler.news.Database.LatestNewsDbHelper;
 import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
 import com.nightcrawler.news.Fragments.SearchFragment;

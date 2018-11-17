@@ -60,11 +60,8 @@ public class ArticleReadActivity extends AppCompatActivity {
             }
         });
 
-
-
         mAdView = findViewById(R.id.adView);
         createAd();
-
 
         share = (ImageButton) findViewById(R.id.share);
         bookmarkArticle = (ImageButton) findViewById(R.id.bookmarkArticle);
