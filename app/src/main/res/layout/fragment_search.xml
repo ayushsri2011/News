@@ -36,11 +36,12 @@
                 android:hint="@string/enter_search_text"
                 android:inputType="text" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/refresh"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right" />
+                android:layout_gravity="right"
+                android:src="@drawable/ic_search_black_24dp"/>
 
         </LinearLayout>
 

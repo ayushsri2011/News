@@ -10,7 +10,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="placeholder">placeholder</string>
+    <string name="placeholder">placeholder test test test test test test test test test test test test test test test test test test test test test test test test</string>
+    <string name="placeholder2">PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST </string>
     <string name="enter_text_to_search_through_articles">Enter text to search through articles</string>
     <string name="article_image">Article Image</string>
     <string name="settings">Settings</string>
@@ -32,4 +33,6 @@
     <string name="admob_app_id">ca-app-pub-3934094758570622~8126903939</string>
     <string name="banner_home_footer">ca-app-pub-3934094758570622/2255630158</string>
     <string name="interstitial_full_screen">ca-app-pub-3934094758570622/1521967136</string>
+    <string name="welcome">Welcome!</string>
+    <string name="enter_search_text">Enter search keywords</string>
 </resources>

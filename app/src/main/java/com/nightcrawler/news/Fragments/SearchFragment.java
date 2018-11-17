@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +35,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
     private RecyclerView rv;
     private TextView search_text;
-    private Button refresh;
+    private ImageButton refresh;
     NewsAdapter newsAdapter;
 
     public SearchFragment() {
@@ -54,54 +56,74 @@ public class SearchFragment extends Fragment {
 
         final String finalURL = "https://newsapi.org/v2/top-headlines?q=";
 
+
+        search_text.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    processRequest();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String text = search_text.getText().toString();
-                String t = "https://newsapi.org/v2/top-headlines?q=";
-                if (!t.trim().equals("")) {
-                    t += text;
-                    t += "&apiKey=a631133308204b1ba583dc2ed43486b5";
-
-                    StringRequest stringRequest = new StringRequest(t, new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            Gson gson = new GsonBuilder().create();
-                            List<Article> articleList = new ArrayList<>();
-                            JSONObject responseJson = null;
-                            try {
-                                responseJson = new JSONObject(response);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            JSONArray articlesList = responseJson.optJSONArray("articles");
-                            if (articlesList == null) {
-                                return;
-                            }
-
-                            for (int i = 0; i < articlesList.length(); i++) {
-                                Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
-                                articleList.add(article);
-                            }
-                            if (articleList.size() > 0) {
-                                newsAdapter.setDataSource(articleList);
-                            }
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
-                            Log.d("TEST", "FAILURE");
-                        }
-                    });
-
-                    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-                    requestQueue.add(stringRequest);
-                }
+                processRequest();
             }
         });
         return rootView;
     }
-}
+
+
+    public void processRequest() {
+
+        String text = search_text.getText().toString();
+        String t = "https://newsapi.org/v2/top-headlines?q=";
+        if (!t.trim().equals("")) {
+            t += text;
+            t += "&apiKey=a631133308204b1ba583dc2ed43486b5";
+
+            StringRequest stringRequest = new StringRequest(t, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Gson gson = new GsonBuilder().create();
+                    List<Article> articleList = new ArrayList<>();
+                    JSONObject responseJson = null;
+                    try {
+                        responseJson = new JSONObject(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    JSONArray articlesList = responseJson.optJSONArray("articles");
+                    if (articlesList == null) {
+                        return;
+                    }
+
+                    for (int i = 0; i < articlesList.length(); i++) {
+                        Article article = gson.fromJson(articlesList.optJSONObject(i).toString(), Article.class);
+                        articleList.add(article);
+                    }
+                    if (articleList.size() > 0) {
+                        newsAdapter.setDataSource(articleList);
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                    Log.d("TEST", "FAILURE");
+                }
+            });
+
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            requestQueue.add(stringRequest);
+        }
+    }
+    }

@@ -43,7 +43,18 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
 //                    mTextMessage.setText(R.string.title_home);
+
+                    for (int i = 0; i < navigationView.getMenu().size(); i++) {
+                        navigationView.getMenu().getItem(i).setChecked(false);
+                    }
+
                     selectFragment(item);
+//                    onNavigationItemSelected(navigationView.getMenu().getItem(3));
+//                    navigationView.getMenu().getItem(0).setChecked(true);x`
+//                    navigationView.getMenu().getItem(1).setChecked(true);
+//                    navigationView.getMenu().getItem(2).setChecked(true);
+//                    navigationView.clearFocus();
+//                    mDrawerLayout.clearFocus();
                     return true;
                 case R.id.navigation_dashboard:
 //                    mTextMessage.setText(R.string.title_topic);
@@ -54,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     selectFragment(item);
                     return true;
             }
+            mDrawerLayout.closeDrawer(GravityCompat.START);
             return false;
         }
     };
