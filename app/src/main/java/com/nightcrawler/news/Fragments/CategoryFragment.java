@@ -1,5 +1,7 @@
 package com.nightcrawler.news.Fragments;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -89,17 +91,20 @@ public class CategoryFragment extends Fragment {
 
 
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("country", 0);
+        String country = sharedPreferences.getString("country", "us");
 
+        Resources res = getActivity().getResources();
+        String Base_URL = res.getString(R.string.request_LatestNews);
+        String API_Key = res.getString(R.string.apiKey);
 
-//        Resources res = getActivity().getResources(); URL = res.getString(R.string.request_LatestNews);
-
-        String URL_bus = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_ent = "https://newsapi.org/v2/top-headlines?country=in&category=entertainment&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_general = "https://newsapi.org/v2/top-headlines?country=in&category=general&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_health = "https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_science = "https://newsapi.org/v2/top-headlines?country=in&category=science&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_sports = "https://newsapi.org/v2/top-headlines?country=in&category=sports&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
-        String URL_technology = "https://newsapi.org/v2/top-headlines?country=in&category=technology&pagesize=50&apiKey=a631133308204b1ba583dc2ed43486b5";
+        String URL_bus = Base_URL+country+"&category=business&pagesize=50&apiKey="+API_Key;
+        String URL_ent = Base_URL+country+"&category=entertainment&pagesize=50&apiKey="+API_Key;
+        String URL_general = Base_URL+country+"&category=general&pagesize=50&apiKey="+API_Key;
+        String URL_health = Base_URL+country+"&category=health&pagesize=50&apiKey="+API_Key;
+        String URL_science = Base_URL+country+"&category=science&pagesize=50&apiKey="+API_Key;
+        String URL_sports = Base_URL+country+"&category=sports&pagesize=50&apiKey="+API_Key;
+        String URL_technology = Base_URL+country+"&category=technology&pagesize=50&apiKey="+API_Key;
 
         rv_bus.setAdapter(newsAdapter_bus);
         rv_ent.setAdapter(newsAdapter_ent);

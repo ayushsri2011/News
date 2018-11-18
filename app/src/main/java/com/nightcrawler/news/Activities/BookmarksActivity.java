@@ -1,48 +1,26 @@
 package com.nightcrawler.news.Activities;
 
 import android.annotation.SuppressLint;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.DataObjects.Source;
-import com.nightcrawler.news.Database.FavNewsContract;
+import com.nightcrawler.news.Database.NewsContract;
 import com.nightcrawler.news.R;
-import com.nightcrawler.news.Utilities.Utility;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class BookmarksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -50,7 +28,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
     private RecyclerView rv;
     ArrayList<Article> temp;
     Cursor cursor;
-    Uri uri = FavNewsContract.FavNewsContractEntry.CONTENT_URI;
+    Uri uri = NewsContract.NewsContractEntry.CONTENT_URI1;
     NewsAdapter newsAdapter;
 
     @Override

@@ -1,8 +1,8 @@
 package com.nightcrawler.news.Fragments;
 
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,8 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Article;
-import com.nightcrawler.news.Database.LatestNewsContract;
-import com.nightcrawler.news.Database.LatestNewsDbHelper;
+import com.nightcrawler.news.Database.NewsContract;
 import com.nightcrawler.news.R;
 import com.nightcrawler.news.Utilities.Utility;
 
@@ -48,9 +47,12 @@ public class LatestNewsFragment extends Fragment {
         rv = rootView.findViewById(R.id.rv_latest_news);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("country", 0);
+        String country = sharedPreferences.getString("country", "us");
         Resources res = getActivity().getResources();
+
         String URL = res.getString(R.string.request_LatestNews);
-        URL = URL + "in&apiKey=a631133308204b1ba583dc2ed43486b5";
+        URL = URL + country+"&apiKey=a631133308204b1ba583dc2ed43486b5";
 
         final NewsAdapter newsAdapter = new NewsAdapter(getContext());
         rv.setAdapter(newsAdapter);
@@ -79,7 +81,7 @@ public class LatestNewsFragment extends Fragment {
                 if (articleList.size() > 0) {
                     newsAdapter.setDataSource(articleList);
                     for (int i = 0; i < articleList.size(); i++) {
-                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
+//                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
 //                        latestNewsDbHelper.onCreate(new SQLiteDatabase());
                         insertLatestNewsDb(articleList.get(i));
                     }
@@ -109,14 +111,16 @@ public class LatestNewsFragment extends Fragment {
     public void insertLatestNewsDb(Article article) {
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(LatestNewsContract.LatestNewsContractEntry.urlToImage, article.getUrlToImage());
-        contentValues.put(LatestNewsContract.LatestNewsContractEntry.author, article.getAuthor());
-        contentValues.put(LatestNewsContract.LatestNewsContractEntry.url, article.getUrl());
-        contentValues.put(LatestNewsContract.LatestNewsContractEntry.title, article.getTitle());
-        contentValues.put(LatestNewsContract.LatestNewsContractEntry.publishedAt, article.getPublishedAt());
+        contentValues.put(NewsContract.NewsContractEntry.urlToImage, article.getUrlToImage());
+        contentValues.put(NewsContract.NewsContractEntry.author, article.getAuthor());
+        contentValues.put(NewsContract.NewsContractEntry.url, article.getUrl());
+        contentValues.put(NewsContract.NewsContractEntry.title, article.getTitle());
+        contentValues.put(NewsContract.NewsContractEntry.publishedAt, article.getPublishedAt());
 
-        getActivity().getContentResolver().insert(LatestNewsContract.LatestNewsContractEntry.CONTENT_URI, contentValues);
+//        Log.d("TESTAAAAAAAA",NewsContract.NewsContractEntry.CONTENT_URI2.toString());
+//        content://com.nightcrawler.news/News/LatestNews
+        getActivity().getContentResolver().insert(NewsContract
+                .NewsContractEntry.CONTENT_URI2, contentValues);
 
-//        Toast.makeText(this, "Added to Bookmarks", Toast.LENGTH_SHORT).show();
     }
 }

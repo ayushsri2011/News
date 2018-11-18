@@ -33,7 +33,7 @@
             tools:ignore="InnerclassSeparator" />
 
         <provider
-            android:name=".ContentProvider.FavNewsContentProvider"
+            android:name=".ContentProvider.NewsContentProvider"
             android:authorities="com.nightcrawler.news"
             android:exported="false"
             tools:ignore="InnerclassSeparator" />

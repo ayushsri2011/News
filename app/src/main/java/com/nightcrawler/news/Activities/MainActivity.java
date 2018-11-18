@@ -139,9 +139,10 @@ public class MainActivity extends AppCompatActivity {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         selectFragment(navigation.getMenu().getItem(0));
+
         SharedPreferences sharedPreferences = getSharedPreferences("country", 0);
         String country = sharedPreferences.getString("country", "us");
-        Toast.makeText(this, " " + country, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, " " + country, Toast.LENGTH_SHORT).show();
     }
 
     private void selectFragment(MenuItem item) {

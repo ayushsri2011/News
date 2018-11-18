@@ -21,13 +21,13 @@ public class LatestNewsDbHelper extends SQLiteOpenHelper {
 
         // Create a table to hold waitlist data
         final String SQL_CREATE_MOVIELIST_TABLE = "CREATE TABLE "
-                + FavNewsContract.FavNewsContractEntry.TABLE_NAME + " (" +
-                FavNewsContract.FavNewsContractEntry.publishedAt + " TEXT , " +
-                FavNewsContract.FavNewsContractEntry.url + " TEXT  , " +
-                FavNewsContract.FavNewsContractEntry.title + " TEXT , " +
-                FavNewsContract.FavNewsContractEntry.author + " TEXT , " +
-                FavNewsContract.FavNewsContractEntry.urlToImage + " TEXT , " +
-                FavNewsContract.FavNewsContractEntry.NEWS_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+                + LatestNewsContract.LatestNewsContractEntry.TABLE_NAME + " (" +
+                LatestNewsContract.LatestNewsContractEntry.publishedAt + " TEXT , " +
+                LatestNewsContract.LatestNewsContractEntry.url + " TEXT  , " +
+                LatestNewsContract.LatestNewsContractEntry.title + " TEXT , " +
+                LatestNewsContract.LatestNewsContractEntry.author + " TEXT , " +
+                LatestNewsContract.LatestNewsContractEntry.urlToImage + " TEXT , " +
+                LatestNewsContract.LatestNewsContractEntry.NEWS_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
                 + "); ";
 
         sqLiteDatabase.execSQL(SQL_CREATE_MOVIELIST_TABLE);
@@ -39,7 +39,7 @@ public class LatestNewsDbHelper extends SQLiteOpenHelper {
         // DATABASE_VERSION the table will be dropped.
         // In a production app, this method might be modified to ALTER the table
         // instead of dropping it, so that existing data is not deleted.
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + FavNewsContract.FavNewsContractEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LatestNewsContract.LatestNewsContractEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

@@ -19,7 +19,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
-import com.nightcrawler.news.Database.FavNewsContract;
+import com.nightcrawler.news.Database.NewsContract;
 import com.nightcrawler.news.R;
 
 import java.util.Objects;
@@ -99,7 +99,7 @@ public class ArticleReadActivity extends AppCompatActivity {
         bookmarkArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = FavNewsContract.FavNewsContractEntry.CONTENT_URI;
+                Uri uri = NewsContract.NewsContractEntry.CONTENT_URI1;
                 String[] selectionArgs = {url};
 
                 Cursor mCount = getContentResolver().query(uri, null, "url=?", selectionArgs, null, null);
@@ -111,14 +111,14 @@ public class ArticleReadActivity extends AppCompatActivity {
                 } else {
                     bookmarkArticle.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
                     fav = false;
-                    getContentResolver().delete(FavNewsContract.FavNewsContractEntry.CONTENT_URI.buildUpon().appendPath("101").build(), "url=?", selectionArgs);
+                    getContentResolver().delete(NewsContract.NewsContractEntry.CONTENT_URI1.buildUpon().appendPath("101").build(), "url=?", selectionArgs);
                     Toast.makeText(getBaseContext(), "Removed from favourites", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
-        Uri uri = FavNewsContract.FavNewsContractEntry.CONTENT_URI;
+        Uri uri = NewsContract.NewsContractEntry.CONTENT_URI1;
         String[] selectionArgs = {url};
         Cursor mCount = getContentResolver().query(uri, null, "url=?", selectionArgs, null, null);
 
@@ -201,13 +201,13 @@ public class ArticleReadActivity extends AppCompatActivity {
 
     public void insertFavDb() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FavNewsContract.FavNewsContractEntry.urlToImage, urlToImage);
-        contentValues.put(FavNewsContract.FavNewsContractEntry.author, author);
-        contentValues.put(FavNewsContract.FavNewsContractEntry.url, url);
-        contentValues.put(FavNewsContract.FavNewsContractEntry.title, title);
-        contentValues.put(FavNewsContract.FavNewsContractEntry.publishedAt, publishedAt);
+        contentValues.put(NewsContract.NewsContractEntry.urlToImage, urlToImage);
+        contentValues.put(NewsContract.NewsContractEntry.author, author);
+        contentValues.put(NewsContract.NewsContractEntry.url, url);
+        contentValues.put(NewsContract.NewsContractEntry.title, title);
+        contentValues.put(NewsContract.NewsContractEntry.publishedAt, publishedAt);
 
-        getContentResolver().insert(FavNewsContract.FavNewsContractEntry.CONTENT_URI, contentValues);
+        getContentResolver().insert(NewsContract.NewsContractEntry.CONTENT_URI1, contentValues);
 
         Toast.makeText(this, "Added to Bookmarks", Toast.LENGTH_SHORT).show();
     }
