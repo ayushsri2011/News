@@ -35,6 +35,7 @@
             android:textSize="@dimen/description_size"
             android:text="@string/placeholder"
             android:maxLines="3"
+            android:textDirection="anyRtl"
             android:textColor="@color/color_text"
             android:background="@color/color_background"/>
 
@@ -49,6 +50,7 @@
             android:textSize="@dimen/sources_size"
             android:text="@string/placeholder2"
             android:maxLines="3"
+            android:textDirection="anyRtl"
             android:textColor="@color/color_text"
             android:background="@color/color_background"/>
 

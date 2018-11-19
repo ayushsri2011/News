@@ -54,6 +54,20 @@
             android:label="@string/title_activity_bookmarks"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="InnerclassSeparator" />
+
+        <receiver
+            android:name="com.nightcrawler.news.Widget.CollectionAppWidgetProvider"
+            android:label="App Widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.nightcrawler.bakingapp.app.ACTION_DATA_UPDATED" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/collection_widget" />
+        </receiver>
+
     </application>
 
 </manifest>
