@@ -1,24 +1,28 @@
 
 package com.nightcrawler.news.Adapters;
 
-        import android.content.Context;
-        import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.ImageView;
-        import android.widget.TextView;
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-        import com.bumptech.glide.Glide;
-        import com.nightcrawler.news.Activities.ArticleReadActivity;
-        import com.nightcrawler.news.DataObjects.Article;
-        import com.nightcrawler.news.R;
-        import com.squareup.picasso.Picasso;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.nightcrawler.news.Activities.ArticleReadActivity;
+import com.nightcrawler.news.Analytics.AnalyticsApplication;
+import com.nightcrawler.news.DataObjects.Article;
+import com.nightcrawler.news.R;
+import com.squareup.picasso.Picasso;
 
-        import java.util.List;
+import java.util.List;
+
+//import com.google.android.gms.analytics.HitBuilders;
+//import com.google.android.gms.analytics.Tracker;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private Context context;
@@ -48,16 +52,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.article_description.setText(articles.get(position).getTitle());
         holder.article_author.setText(articles.get(position).getAuthor());
 //        Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
-        try{
-        if(articles.get(position).getUrlToImage()!=""&&articles.get(position).getUrlToImage()!=" ")
-        Picasso.get()
-                .load(articles.get(position).getUrlToImage())
-                    .placeholder(R.drawable.news).into(holder.card_iv);
-        }catch (Exception e)
-        {
+        try {
+            if (articles.get(position).getUrlToImage() != "" && articles.get(position).getUrlToImage() != " ")
+                Picasso.get()
+                        .load(articles.get(position).getUrlToImage())
+                        .placeholder(R.drawable.news).into(holder.card_iv);
+        } catch (Exception e) {
             holder.card_iv.setImageResource(R.drawable.news);
         }
-
 
 
     }
@@ -84,13 +86,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View view) {
+            AnalyticsApplication application = new AnalyticsApplication();
+            Tracker mTracker = application.getDefaultTracker();
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Share")
+                    .build());
+
             int pos = getAdapterPosition();
             Intent intent = new Intent(context, ArticleReadActivity.class);
-            intent.putExtra("url",articles.get(pos).getUrl());
-            intent.putExtra("author",articles.get(pos).getAuthor());
-            intent.putExtra("urlToImage",articles.get(pos).getUrlToImage());
-            intent.putExtra("title",articles.get(pos).getTitle());
-            intent.putExtra("publishedAt",articles.get(pos).getPublishedAt());
+            intent.putExtra("url", articles.get(pos).getUrl());
+            intent.putExtra("author", articles.get(pos).getAuthor());
+            intent.putExtra("urlToImage", articles.get(pos).getUrlToImage());
+            intent.putExtra("title", articles.get(pos).getTitle());
+            intent.putExtra("publishedAt", articles.get(pos).getPublishedAt());
 //            Bundle args = new Bundle();
 //            args.putParcelable("ARTICLE", articles.get(pos));
 //            intent.putExtras(args);

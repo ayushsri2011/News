@@ -37,7 +37,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
         setContentView(R.layout.activity_bookmarks);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        rv = (RecyclerView) findViewById(R.id.rv_bookmark_news);
+        rv = findViewById(R.id.rv_bookmark_news);
         rv.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         newsAdapter = new NewsAdapter(getBaseContext());
         rv.setAdapter(newsAdapter);

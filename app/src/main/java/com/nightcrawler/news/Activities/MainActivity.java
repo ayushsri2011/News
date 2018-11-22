@@ -23,6 +23,9 @@ import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
 import com.nightcrawler.news.Fragments.SearchFragment;
 import com.nightcrawler.news.R;
+import com.nightcrawler.news.Services.UpdateLatestNewsDbService;
+
+import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        Intent mServiceIntent = new Intent(this,UpdateLatestNewsDbService.class);
+//        mServiceIntent.putExtra("download_url", "test");
+        startService(mServiceIntent);
+
+//         final int RSS_JOB_ID = 1000;
+//         UpdateLatestNewsDbService.enqueueWork(getContext(), UpdateLatestNewsDbService.class, RSS_JOB_ID, mServiceIntent);
+
+
+
+
+
+
+
+
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -136,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 //        mTextMessage = (TextView) findViewById(R.id.message);
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         selectFragment(navigation.getMenu().getItem(0));
 

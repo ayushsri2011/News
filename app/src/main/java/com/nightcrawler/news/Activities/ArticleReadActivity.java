@@ -63,8 +63,8 @@ public class ArticleReadActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         createAd();
 
-        share = (ImageButton) findViewById(R.id.share);
-        bookmarkArticle = (ImageButton) findViewById(R.id.bookmarkArticle);
+        share = findViewById(R.id.share);
+        bookmarkArticle = findViewById(R.id.bookmarkArticle);
 
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
@@ -73,8 +73,8 @@ public class ArticleReadActivity extends AppCompatActivity {
         title = intent.getStringExtra("title");
         author = intent.getStringExtra("author");
 
-        article_webView = (WebView) findViewById(R.id.article_webView);
-        pb = (ProgressBar) findViewById(R.id.pb);
+        article_webView = findViewById(R.id.article_webView);
+        pb = findViewById(R.id.pb);
         pb.setVisibility(View.VISIBLE);
 
         article_webView.loadUrl(url);

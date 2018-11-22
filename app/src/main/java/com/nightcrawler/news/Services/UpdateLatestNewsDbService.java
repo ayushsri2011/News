@@ -1,16 +1,12 @@
-package com.nightcrawler.news.Fragments;
+package com.nightcrawler.news.Services;
 
+import android.app.IntentService;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,7 +16,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nightcrawler.news.Adapters.NewsAdapter;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.Database.NewsContract;
 import com.nightcrawler.news.R;
@@ -33,34 +28,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.analytics.HitBuilders;
-//import com.google.android.gms.analytics.Tracker;
+public class UpdateLatestNewsDbService extends IntentService {
 
 
-public class LatestNewsFragment extends Fragment {
-    private RecyclerView rv;
-//    Tracker mTracker;
-    public LatestNewsFragment() {
+    public UpdateLatestNewsDbService(String name) {
+        super(name);
+    }
+    public UpdateLatestNewsDbService( ) {
+        super("");
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onHandleIntent(@Nullable Intent intent) {
 
-        View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
-        rv = rootView.findViewById(R.id.rv_latest_news);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-
-//        AnalyticsApplication application = new AnalyticsApplication();
-//        mTracker = application.getDefaultTracker();
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("country", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences("country", 0);
         String country = sharedPreferences.getString("country", "us");
-        Resources res = getActivity().getResources();
+        Resources res = getResources();
+
 
         String URL = res.getString(R.string.request_LatestNews);
-        URL = URL + country+"&apiKey=a631133308204b1ba583dc2ed43486b5";
+        URL = URL + country + "&apiKey=a631133308204b1ba583dc2ed43486b5";
 
-        final NewsAdapter newsAdapter = new NewsAdapter(getContext());
-        rv.setAdapter(newsAdapter);
 
         StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
 
@@ -84,43 +72,22 @@ public class LatestNewsFragment extends Fragment {
                     articleList.add(article);
                 }
                 if (articleList.size() > 0) {
-                    newsAdapter.setDataSource(articleList);
                     for (int i = 0; i < articleList.size(); i++) {
 //                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
 //                        latestNewsDbHelper.onCreate(new SQLiteDatabase());
                         insertLatestNewsDb(articleList.get(i));
                     }
-
                 }
-
-
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (Utility.checkConnectivity(getContext()))
-                    Toast.makeText(getActivity(), "No internet conection", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getActivity(), "Failure to retrieve news", Toast.LENGTH_SHORT).show();
                 Log.d("TEST", "FAILURE");
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
-
-
-        return rootView;
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i("LatestNewsFragment", "Setting LatestNewsFragment: ");
-//        mTracker.setScreenName("Image~" + "Test");
-//        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void insertLatestNewsDb(Article article) {
@@ -132,12 +99,8 @@ public class LatestNewsFragment extends Fragment {
         contentValues.put(NewsContract.NewsContractEntry.title, article.getTitle());
         contentValues.put(NewsContract.NewsContractEntry.publishedAt, article.getPublishedAt());
 
-//        Log.d("TESTAAAAAAAA",NewsContract.NewsContractEntry.CONTENT_URI2.toString());
-//        content://com.nightcrawler.news/News/LatestNews
-        getActivity().getContentResolver().insert(NewsContract
+        getContentResolver().insert(NewsContract
                 .NewsContractEntry.CONTENT_URI2, contentValues);
 
     }
-
-
 }
