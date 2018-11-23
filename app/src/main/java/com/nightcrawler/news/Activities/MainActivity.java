@@ -14,23 +14,18 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
-import com.nightcrawler.news.Analytics.AnalyticsTrackers;
-import com.nightcrawler.news.Analytics.MyApplication;
-import com.nightcrawler.news.Database.LatestNewsDbHelper;
 import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
 import com.nightcrawler.news.Fragments.SearchFragment;
 import com.nightcrawler.news.R;
 import com.nightcrawler.news.Services.UpdateLatestNewsDbService;
-
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -81,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class
             .getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        Intent mServiceIntent = new Intent(this,UpdateLatestNewsDbService.class);
+        Intent mServiceIntent = new Intent(this, UpdateLatestNewsDbService.class);
 //        mServiceIntent.putExtra("download_url", "test");
         startService(mServiceIntent);
 //         final int RSS_JOB_ID = 1000;
@@ -104,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 //        analyticsTrackers.get(AnalyticsTrackers.Target.APP);
 //        analyticsTrackers.
 
-        GoogleAnalytics googleAnalytics= GoogleAnalytics.getInstance(this);
+        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
         googleAnalytics.setLocalDispatchPeriod(3000);
 
         Tracker tracker = googleAnalytics.newTracker("UA-129102573-1");
@@ -114,12 +110,14 @@ public class MainActivity extends AppCompatActivity {
         tracker.setScreenName("MainActivity");
 //        tracker.send(new);
 
-        tracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Action")
-                .setAction("Share")
-                .build());
+//        tracker.send(new HitBuilders.EventBuilder()
+//                .setCategory("Action")
+//                .setAction("Share")
+//                .build());
 
-
+        Log.i(TAG, "Setting screen name: " + "");
+//        tracker.setScreenName("Image~" + "MainActivity");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -246,8 +244,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     private void updateToolbarText(CharSequence text) {

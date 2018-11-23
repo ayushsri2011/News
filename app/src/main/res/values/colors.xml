@@ -10,4 +10,13 @@
 
     <color name="color_background">#ffffff</color>
     <color name="color_text">#19181a</color>
+
+
+
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <!--<color name="colorAccent">#FFD180</color>-->
+    <color name="btnBackground">#e7e7e7</color>
 </resources>

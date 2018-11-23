@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.nightcrawler.news.Activities.ArticleReadActivity;
-import com.nightcrawler.news.Analytics.AnalyticsApplication;
+//import com.nightcrawler.news.Analytics.AnalyticsApplication;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.R;
 import com.squareup.picasso.Picasso;
@@ -86,12 +86,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View view) {
-            AnalyticsApplication application = new AnalyticsApplication();
-            Tracker mTracker = application.getDefaultTracker();
-            mTracker.send(new HitBuilders.EventBuilder()
-                    .setCategory("Action")
-                    .setAction("Share")
-                    .build());
+//            AnalyticsApplication application = new AnalyticsApplication();
+//            Tracker mTracker = application.getDefaultTracker();
+//            mTracker.send(new HitBuilders.EventBuilder()
+//                    .setCategory("Action")
+//                    .setAction("Share")
+//                    .build());
 
             int pos = getAdapterPosition();
             Intent intent = new Intent(context, ArticleReadActivity.class);

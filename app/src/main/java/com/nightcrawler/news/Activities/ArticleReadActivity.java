@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +21,9 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.nightcrawler.news.Database.NewsContract;
 import com.nightcrawler.news.R;
 
@@ -33,6 +38,8 @@ public class ArticleReadActivity extends AppCompatActivity {
     boolean fav = false;
     private AdView mAdView;
     InterstitialAd mInterstitialAd;
+    public static final String TAG = MainActivity.class
+            .getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +52,35 @@ public class ArticleReadActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        GoogleAnalytics googleAnalytics= GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(3000);
+
+        final Tracker tracker = googleAnalytics.newTracker("UA-129102573-1");
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.setScreenName("ArticleReadActivity");
+//        tracker.send(new);
+
+
+        Log.i(TAG, "Setting screen name: " + "");
+        tracker.setScreenName("ArticleReadActivity");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.interstitial_test));
 
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_test_device_id))
+        final AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_test_device_id))
                 .build();
 
         // Load ads into Interstitial Ads
-        mInterstitialAd.loadAd(adRequest);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mInterstitialAd.loadAd(adRequest);
+            }
+        }, 3000);
+
 
         mInterstitialAd.setAdListener(new AdListener() {
             public void onAdLoaded() {
@@ -89,6 +117,12 @@ public class ArticleReadActivity extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("ButtonClick")
+                        .setAction("ShareArticle")
+                        .setLabel("Share Article Link")
+                        .build());
+
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "Shared using NewsApp  " + url);
@@ -99,6 +133,12 @@ public class ArticleReadActivity extends AppCompatActivity {
         bookmarkArticle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("ButtonClick")
+                        .setAction("Bookmark")
+                        .setLabel("Bookmark/Unbookmark an article")
+                        .build());
+
                 Uri uri = NewsContract.NewsContractEntry.CONTENT_URI1;
                 String[] selectionArgs = {url};
 
