@@ -18,6 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.nightcrawler.news.Analytics.AnalyticsTrackers;
+import com.nightcrawler.news.Analytics.MyApplication;
 import com.nightcrawler.news.Database.LatestNewsDbHelper;
 import com.nightcrawler.news.Fragments.CategoryFragment;
 import com.nightcrawler.news.Fragments.LatestNewsFragment;
@@ -74,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
+    public static final String TAG = MainActivity.class
+            .getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,14 +95,29 @@ public class MainActivity extends AppCompatActivity {
         Intent mServiceIntent = new Intent(this,UpdateLatestNewsDbService.class);
 //        mServiceIntent.putExtra("download_url", "test");
         startService(mServiceIntent);
-
 //         final int RSS_JOB_ID = 1000;
 //         UpdateLatestNewsDbService.enqueueWork(getContext(), UpdateLatestNewsDbService.class, RSS_JOB_ID, mServiceIntent);
 
 
+//        AnalyticsTrackers.initialize(this);
+//        AnalyticsTrackers analyticsTrackers=AnalyticsTrackers.getInstance();
+//        analyticsTrackers.get(AnalyticsTrackers.Target.APP);
+//        analyticsTrackers.
 
+        GoogleAnalytics googleAnalytics= GoogleAnalytics.getInstance(this);
+        googleAnalytics.setLocalDispatchPeriod(3000);
 
+        Tracker tracker = googleAnalytics.newTracker("UA-129102573-1");
+        tracker.enableExceptionReporting(true);
+        tracker.enableAdvertisingIdCollection(true);
+        tracker.enableAutoActivityTracking(true);
+        tracker.setScreenName("MainActivity");
+//        tracker.send(new);
 
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
 
 
 
