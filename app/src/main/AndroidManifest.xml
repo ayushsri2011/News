@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <!--android:theme="@style/AppTheme">-->
-
-        <!--<application android:name="AnalyticsApplication"/>-->
 
         <activity
             android:name=".Activities.MainActivity"
@@ -24,25 +21,17 @@
             tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.ArticleReadActivity"
             tools:ignore="InnerclassSeparator" />
-
         <provider
             android:name=".ContentProvider.NewsContentProvider"
             android:authorities="com.nightcrawler.news"
-            android:exported="false"
+            android:exported="true"
             tools:ignore="InnerclassSeparator" />
-
-        <!--<provider-->
-        <!--android:name=".ContentProvider.LatestNewsContentProvider"-->
-        <!--android:authorities="com.nightcrawler.news"-->
-        <!--android:exported="false"-->
-        <!--tools:ignore="InnerclassSeparator" />-->
 
         <activity
             android:name=".Activities.PreferencesActivity"
@@ -58,18 +47,17 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3934094758570622~8126903939" />
-
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <receiver
             android:name="com.nightcrawler.news.Widget.CollectionAppWidgetProvider"
-            android:label="App Widget">
+            android:label="App Widget"
+            tools:ignore="InnerclassSeparator">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.nightcrawler.bakingapp.app.ACTION_DATA_UPDATED" />
@@ -80,7 +68,12 @@
                 android:resource="@xml/collection_widget" />
         </receiver>
 
-        <service android:name=".Services.UpdateLatestNewsDbService" />
+        <service android:name=".Services.UpdateLatestNewsDbService"
+            tools:ignore="InnerclassSeparator" />
+        <service
+            android:name=".Widget.MyWidgetRemoteViewsService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            tools:ignore="InnerclassSeparator" />
     </application>
 
 </manifest>

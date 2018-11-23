@@ -3,6 +3,7 @@ package com.nightcrawler.news.Fragments;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,7 +89,8 @@ public class LatestNewsFragment extends Fragment {
                     for (int i = 0; i < articleList.size(); i++) {
 //                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
 //                        latestNewsDbHelper.onCreate(new SQLiteDatabase());
-                        insertLatestNewsDb(articleList.get(i));
+//                        insertLatestNewsDb(articleList.get(i));
+                        Utility.insertLatestNewsDb(articleList.get(i),getActivity());
                     }
 
                 }
@@ -134,9 +136,18 @@ public class LatestNewsFragment extends Fragment {
 
 //        Log.d("TESTAAAAAAAA",NewsContract.NewsContractEntry.CONTENT_URI2.toString());
 //        content://com.nightcrawler.news/News/LatestNews
-        getActivity().getContentResolver().insert(NewsContract
-                .NewsContractEntry.CONTENT_URI2, contentValues);
 
+
+//        getActivity().getContentResolver().query(NewsContract
+//                .NewsContractEntry.CONTENT_URI2, null, null, null, "timestamp desc");
+        String[] args={article.getUrl()};
+        Cursor cursor=getActivity().getContentResolver().query(NewsContract
+                .NewsContractEntry.CONTENT_URI2,null,"url=?",args,"timestamp desc");
+        if(cursor.getCount()==0)
+        {
+            getActivity().getContentResolver().insert(NewsContract
+                    .NewsContractEntry.CONTENT_URI2, contentValues);
+        }
     }
 
 

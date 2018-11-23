@@ -8,13 +8,15 @@
     android:paddingEnd="1dp"
     android:weightSum="2"
     android:id="@+id/widgetItemContainer"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#ffff">
 
     <TextView android:id="@+id/widgetItemTaskNameLabel"
         android:layout_width="match_parent"
         android:gravity="start"
         android:layout_weight="1"
         android:textColor="#212121"
+        android:background="#ffff"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"/>
 

@@ -1,5 +1,7 @@
 package com.nightcrawler.news.Activities;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -26,6 +29,7 @@ import com.nightcrawler.news.Fragments.LatestNewsFragment;
 import com.nightcrawler.news.Fragments.SearchFragment;
 import com.nightcrawler.news.R;
 import com.nightcrawler.news.Services.UpdateLatestNewsDbService;
+import com.nightcrawler.news.Widget.CollectionAppWidgetProvider;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     BottomNavigationView navigation;
     FragmentManager fragmentManager = getSupportFragmentManager();
-    //    Fragment frag = null;
     LatestNewsFragment latestNewsFragment;
     SearchFragment searchFragment;
     CategoryFragment categoryFragment;
@@ -89,8 +92,21 @@ public class MainActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         Intent mServiceIntent = new Intent(this, UpdateLatestNewsDbService.class);
-//        mServiceIntent.putExtra("download_url", "test");
         startService(mServiceIntent);
+
+        try{
+            CollectionAppWidgetProvider.sendRefreshBroadcast(getBaseContext());
+//        Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//        intent.setComponent(new ComponentName(getBaseContext(), CollectionAppWidgetProvider.class));
+//        getBaseContext().sendBroadcast(intent);
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(this, "Error in broadcast", Toast.LENGTH_SHORT).show();
+        }
+
+//        mServiceIntent.putExtra("download_url", "test");
+
 //         final int RSS_JOB_ID = 1000;
 //         UpdateLatestNewsDbService.enqueueWork(getContext(), UpdateLatestNewsDbService.class, RSS_JOB_ID, mServiceIntent);
 

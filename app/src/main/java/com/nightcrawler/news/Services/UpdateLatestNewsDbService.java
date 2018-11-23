@@ -75,7 +75,8 @@ public class UpdateLatestNewsDbService extends IntentService {
                     for (int i = 0; i < articleList.size(); i++) {
 //                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
 //                        latestNewsDbHelper.onCreate(new SQLiteDatabase());
-                        insertLatestNewsDb(articleList.get(i));
+//                        insertLatestNewsDb(articleList.get(i));
+                        Utility.insertLatestNewsDb(articleList.get(i),getApplicationContext());
                     }
                 }
             }

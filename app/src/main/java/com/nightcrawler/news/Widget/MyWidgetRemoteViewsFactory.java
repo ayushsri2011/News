@@ -45,7 +45,7 @@ public class MyWidgetRemoteViewsFactory implements RemoteViewsService.RemoteView
                 cursor.moveToFirst();
                     widgetList.add("News");
                 for (int i = 0; i < cursor.getCount(); i++) {
-                    widgetList.add(cursor.getString(3));
+                    widgetList.add(cursor.getString(2));
                     cursor.moveToNext();
                 }
             }
