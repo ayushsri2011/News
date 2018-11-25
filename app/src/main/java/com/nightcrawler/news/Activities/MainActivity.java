@@ -49,26 +49,17 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
 
                     for (int i = 0; i < navigationView.getMenu().size(); i++) {
                         navigationView.getMenu().getItem(i).setChecked(false);
                     }
 
                     selectFragment(item);
-//                    onNavigationItemSelected(navigationView.getMenu().getItem(3));
-//                    navigationView.getMenu().getItem(0).setChecked(true);x`
-//                    navigationView.getMenu().getItem(1).setChecked(true);
-//                    navigationView.getMenu().getItem(2).setChecked(true);
-//                    navigationView.clearFocus();
-//                    mDrawerLayout.clearFocus();
                     return true;
                 case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_topic);
                     selectFragment(item);
                     return true;
                 case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_search);
                     selectFragment(item);
                     return true;
             }
@@ -105,16 +96,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Error in broadcast", Toast.LENGTH_SHORT).show();
         }
 
-//        mServiceIntent.putExtra("download_url", "test");
-
-//         final int RSS_JOB_ID = 1000;
-//         UpdateLatestNewsDbService.enqueueWork(getContext(), UpdateLatestNewsDbService.class, RSS_JOB_ID, mServiceIntent);
-
-
-//        AnalyticsTrackers.initialize(this);
-//        AnalyticsTrackers analyticsTrackers=AnalyticsTrackers.getInstance();
-//        analyticsTrackers.get(AnalyticsTrackers.Target.APP);
-//        analyticsTrackers.
 
         GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
         googleAnalytics.setLocalDispatchPeriod(3000);
@@ -124,15 +105,8 @@ public class MainActivity extends AppCompatActivity {
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.setScreenName("MainActivity");
-//        tracker.send(new);
-
-//        tracker.send(new HitBuilders.EventBuilder()
-//                .setCategory("Action")
-//                .setAction("Share")
-//                .build());
 
         Log.i(TAG, "Setting screen name: " + "");
-//        tracker.setScreenName("Image~" + "MainActivity");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
 
@@ -187,14 +161,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
-//        mTextMessage = (TextView) findViewById(R.id.message);
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         selectFragment(navigation.getMenu().getItem(0));
 
         SharedPreferences sharedPreferences = getSharedPreferences("country", 0);
         String country = sharedPreferences.getString("country", "us");
-//        Toast.makeText(this, " " + country, Toast.LENGTH_SHORT).show();
     }
 
     private void selectFragment(MenuItem item) {
@@ -302,24 +274,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-////        if (Utils.checkConnectivity(getBaseContext()))
-//        ActionBar actionBar = getSupportActionBar();
-//
-//        getMenuInflater().inflate(R.menu.settings_menu, menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        // When the home button is pressed, take the user back to the VisualizerActivity
-//        if (id == R.id.action_settings) {
-//            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
-//            startActivity(startSettingsActivity);
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }

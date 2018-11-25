@@ -34,7 +34,7 @@
 
             // Initialize a UriMatcher with no matches by passing in NO_MATCH to the constructor
             UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-            content://com.nightcrawler.news/News/LatestNews
+//            content://com.nightcrawler.news/News/LatestNews
             uriMatcher.addURI(NewsContract.AUTHORITY, NewsContract.PATH_TASKS+ "/FavNews", TASKS_FavTable);
             uriMatcher.addURI(NewsContract.AUTHORITY, NewsContract.PATH_TASKS + "/#", TASK_WITH_ID_FavTable);
 

@@ -52,7 +52,7 @@ public class ArticleReadActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        GoogleAnalytics googleAnalytics= GoogleAnalytics.getInstance(this);
+        GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
         googleAnalytics.setLocalDispatchPeriod(3000);
 
         final Tracker tracker = googleAnalytics.newTracker("UA-129102573-1");
@@ -60,9 +60,6 @@ public class ArticleReadActivity extends AppCompatActivity {
         tracker.enableAdvertisingIdCollection(true);
         tracker.enableAutoActivityTracking(true);
         tracker.setScreenName("ArticleReadActivity");
-//        tracker.send(new);
-
-
         Log.i(TAG, "Setting screen name: " + "");
         tracker.setScreenName("ArticleReadActivity");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
@@ -79,7 +76,7 @@ public class ArticleReadActivity extends AppCompatActivity {
             public void run() {
                 mInterstitialAd.loadAd(adRequest);
             }
-        }, 3000);
+        }, 20000);
 
 
         mInterstitialAd.setAdListener(new AdListener() {

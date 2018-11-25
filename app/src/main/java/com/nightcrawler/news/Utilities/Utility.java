@@ -33,8 +33,6 @@ public class Utility {
         contentValues.put(NewsContract.NewsContractEntry.title, article.getTitle());
         contentValues.put(NewsContract.NewsContractEntry.publishedAt, article.getPublishedAt());
 
-//        context.getContentResolver().insert(NewsContract
-//                .NewsContractEntry.CONTENT_URI2, contentValues);
 
         String[] args={article.getUrl()};
         Cursor cursor=context.getContentResolver().query(NewsContract

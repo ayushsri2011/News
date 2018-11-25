@@ -21,8 +21,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-//import com.google.android.gms.analytics.HitBuilders;
-//import com.google.android.gms.analytics.Tracker;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
     private Context context;
@@ -51,7 +49,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         holder.article_description.setText(articles.get(position).getTitle());
         holder.article_author.setText(articles.get(position).getAuthor());
-//        Glide.with(holder.card_iv.getContext()).load(articles.get(position).getUrlToImage()).into(holder.card_iv);
         try {
             if (articles.get(position).getUrlToImage() != "" && articles.get(position).getUrlToImage() != " ")
                 Picasso.get()
@@ -86,12 +83,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         @Override
         public void onClick(View view) {
-//            AnalyticsApplication application = new AnalyticsApplication();
-//            Tracker mTracker = application.getDefaultTracker();
-//            mTracker.send(new HitBuilders.EventBuilder()
-//                    .setCategory("Action")
-//                    .setAction("Share")
-//                    .build());
 
             int pos = getAdapterPosition();
             Intent intent = new Intent(context, ArticleReadActivity.class);
@@ -100,9 +91,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             intent.putExtra("urlToImage", articles.get(pos).getUrlToImage());
             intent.putExtra("title", articles.get(pos).getTitle());
             intent.putExtra("publishedAt", articles.get(pos).getPublishedAt());
-//            Bundle args = new Bundle();
-//            args.putParcelable("ARTICLE", articles.get(pos));
-//            intent.putExtras(args);
             context.startActivity(intent);
         }
     }

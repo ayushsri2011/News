@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -34,12 +36,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.google.android.gms.analytics.HitBuilders;
-//import com.google.android.gms.analytics.Tracker;
-
 
 public class LatestNewsFragment extends Fragment {
     private RecyclerView rv;
+    private ImageButton reload_button;
+    private ProgressBar pb2;
 //    Tracker mTracker;
     public LatestNewsFragment() {
     }
@@ -49,10 +50,14 @@ public class LatestNewsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
         rv = rootView.findViewById(R.id.rv_latest_news);
+        reload_button = rootView.findViewById(R.id.reload);
+        pb2 = rootView.findViewById(R.id.pb2);
+
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        AnalyticsApplication application = new AnalyticsApplication();
-//        mTracker = application.getDefaultTracker();
+        reload_button.setVisibility(View.INVISIBLE);
+        pb2.setVisibility(View.VISIBLE);
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("country", 0);
         String country = sharedPreferences.getString("country", "us");
         Resources res = getActivity().getResources();
@@ -63,10 +68,12 @@ public class LatestNewsFragment extends Fragment {
         final NewsAdapter newsAdapter = new NewsAdapter(getContext());
         rv.setAdapter(newsAdapter);
 
-        StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
+
+        final StringRequest stringRequest = new StringRequest(URL, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+                pb2.setVisibility(View.INVISIBLE);
                 Gson gson = new GsonBuilder().create();
                 List<Article> articleList = new ArrayList<>();
                 JSONObject responseJson = null;
@@ -87,10 +94,8 @@ public class LatestNewsFragment extends Fragment {
                 if (articleList.size() > 0) {
                     newsAdapter.setDataSource(articleList);
                     for (int i = 0; i < articleList.size(); i++) {
-//                        LatestNewsDbHelper latestNewsDbHelper=new LatestNewsDbHelper(getContext());
-//                        latestNewsDbHelper.onCreate(new SQLiteDatabase());
-//                        insertLatestNewsDb(articleList.get(i));
                         Utility.insertLatestNewsDb(articleList.get(i),getActivity());
+//                      insertLatestNewsDb(articleList.get(i));
                     }
 
                 }
@@ -101,18 +106,37 @@ public class LatestNewsFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if (Utility.checkConnectivity(getContext()))
-                    Toast.makeText(getActivity(), "No internet conection", Toast.LENGTH_SHORT).show();
+                pb2.setVisibility(View.INVISIBLE);
+                if (Utility.checkConnectivity(getActivity()))
+                    Toast.makeText(getActivity(), "No internet conection", Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(getActivity(), "Failure to retrieve news", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Failure to retrieve news", Toast.LENGTH_LONG).show();
                 Log.d("TEST", "FAILURE");
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
+        if(!Utility.checkConnectivity(getActivity()))
+        {
+            reload_button.setVisibility(View.VISIBLE);
+            Toast.makeText(getActivity(), "Ensure data connectivity to load news", Toast.LENGTH_LONG).show();
+            pb2.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            pb2.setVisibility(View.INVISIBLE);
+            requestQueue.add(stringRequest);
+        }
 
+        reload_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pb2.setVisibility(View.VISIBLE);
+                requestQueue.add(stringRequest);
+            }
+        });
         return rootView;
     }
 
@@ -121,8 +145,6 @@ public class LatestNewsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.i("LatestNewsFragment", "Setting LatestNewsFragment: ");
-//        mTracker.setScreenName("Image~" + "Test");
-//        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public void insertLatestNewsDb(Article article) {
@@ -134,12 +156,6 @@ public class LatestNewsFragment extends Fragment {
         contentValues.put(NewsContract.NewsContractEntry.title, article.getTitle());
         contentValues.put(NewsContract.NewsContractEntry.publishedAt, article.getPublishedAt());
 
-//        Log.d("TESTAAAAAAAA",NewsContract.NewsContractEntry.CONTENT_URI2.toString());
-//        content://com.nightcrawler.news/News/LatestNews
-
-
-//        getActivity().getContentResolver().query(NewsContract
-//                .NewsContractEntry.CONTENT_URI2, null, null, null, "timestamp desc");
         String[] args={article.getUrl()};
         Cursor cursor=getActivity().getContentResolver().query(NewsContract
                 .NewsContractEntry.CONTENT_URI2,null,"url=?",args,"timestamp desc");

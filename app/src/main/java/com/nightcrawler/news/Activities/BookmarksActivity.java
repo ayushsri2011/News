@@ -99,14 +99,7 @@ public class BookmarksActivity extends AppCompatActivity implements LoaderManage
         } else {
             cursor.moveToFirst();
             for (int i = 0; i < cursor.getCount(); i++) {
-//                Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, Object content
                 Article t = new Article(new Source(), cursor.getString(3), cursor.getString(2), "", cursor.getString(1), cursor.getString(4), cursor.getString(0), new Object());
-//                t.setPublishedAt(cursor.getString(0));
-//                t.setUrl(cursor.getString(1));
-//                t.setTitle(cursor.getString(2));
-//                t.setAuthor(cursor.getString(3));
-//                t.setUrlToImage(cursor.getString(4));
-//                t.setDescription("");
                 temp.add(t);
                 cursor.moveToNext();
             }
