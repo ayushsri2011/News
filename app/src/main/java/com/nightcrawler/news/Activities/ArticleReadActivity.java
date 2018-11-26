@@ -49,7 +49,9 @@ public class ArticleReadActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+        }
 //        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
@@ -140,7 +142,7 @@ public class ArticleReadActivity extends AppCompatActivity {
                 String[] selectionArgs = {url};
 
                 Cursor mCount = getContentResolver().query(uri, null, "url=?", selectionArgs, null, null);
-                Toast.makeText(getBaseContext(), "mcount=" + mCount.getCount(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "mcount=" + mCount.getCount(), Toast.LENGTH_SHORT).show();
                 if (!fav) {
                     insertFavDb();
                     bookmarkArticle.setImageResource(R.drawable.ic_bookmark_black_24dp);
@@ -151,6 +153,8 @@ public class ArticleReadActivity extends AppCompatActivity {
                     getContentResolver().delete(NewsContract.NewsContractEntry.CONTENT_URI1.buildUpon().appendPath("101").build(), "url=?", selectionArgs);
                     Toast.makeText(getBaseContext(), "Removed from favourites", Toast.LENGTH_SHORT).show();
                 }
+                mCount.close();
+
             }
         });
 

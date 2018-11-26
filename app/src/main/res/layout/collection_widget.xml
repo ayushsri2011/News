@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="#ffff"
             android:gravity="center"
-            android:text="Latest News"
+            android:text="@string/latest_news"
             android:textAllCaps="true"
             android:textColor="#292727"
             android:textSize="20sp" />

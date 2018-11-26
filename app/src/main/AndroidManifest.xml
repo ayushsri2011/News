@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <activity
             android:name=".Activities.MainActivity"
@@ -31,7 +32,7 @@
             android:name=".ContentProvider.NewsContentProvider"
             android:authorities="com.nightcrawler.news"
             android:exported="true"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="ExportedContentProvider,InnerclassSeparator" />
 
         <activity
             android:name=".Activities.PreferencesActivity"

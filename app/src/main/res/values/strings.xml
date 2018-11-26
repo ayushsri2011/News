@@ -10,8 +10,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="placeholder">placeholder test test test test test test test test test test test test test test test test test test test test test test test test</string>
-    <string name="placeholder2">PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST PLACEHOLDER TEST </string>
+    <string name="placeholder">placeholder</string>
+    <string name="placeholder2">PLACEHOLDER TEST</string>
     <string name="enter_text_to_search_through_articles">Enter text to search through articles</string>
     <string name="article_image">Article Image</string>
     <string name="settings">Settings</string>
@@ -50,4 +50,11 @@
     <string name="btn_exception_tracking">Track Exception</string>
     <string name="btn_app_crash">Track App Crash</string>
     <string name="btn_load_fragment">Fragment Tracking</string>
+    <string name="contentDescription_share_article">Share Article link</string>
+    <string name="contentDescription_bookmark_article">Bookmark article</string>
+    <string name="latest_news">Latest News</string>
+    <string name="swipe_across">Swipe Across for News</string>
+    <string name="bus">business</string>
+    <string name="contentDescription_refresh">Refresh</string>
+    <string name="contentDescription_search">Search</string>
 </resources>

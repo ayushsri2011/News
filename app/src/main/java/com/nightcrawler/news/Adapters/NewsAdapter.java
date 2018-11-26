@@ -20,6 +20,7 @@ import com.nightcrawler.news.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
@@ -50,7 +51,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.article_description.setText(articles.get(position).getTitle());
         holder.article_author.setText(articles.get(position).getAuthor());
         try {
-            if (articles.get(position).getUrlToImage() != "" && articles.get(position).getUrlToImage() != " ")
+            if (!articles.get(position).getUrlToImage().equals("") && !Objects.equals(articles.get(position).getUrlToImage(), " "))
                 Picasso.get()
                         .load(articles.get(position).getUrlToImage())
                         .placeholder(R.drawable.news).into(holder.card_iv);

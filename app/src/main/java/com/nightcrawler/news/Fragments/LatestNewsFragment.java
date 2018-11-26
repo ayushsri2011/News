@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class LatestNewsFragment extends Fragment {
@@ -58,7 +59,7 @@ public class LatestNewsFragment extends Fragment {
         reload_button.setVisibility(View.INVISIBLE);
         pb2.setVisibility(View.VISIBLE);
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("country", 0);
+        SharedPreferences sharedPreferences = Objects.requireNonNull(getActivity()).getSharedPreferences("country", 0);
         String country = sharedPreferences.getString("country", "us");
         Resources res = getActivity().getResources();
 
@@ -164,6 +165,7 @@ public class LatestNewsFragment extends Fragment {
             getActivity().getContentResolver().insert(NewsContract
                     .NewsContractEntry.CONTENT_URI2, contentValues);
         }
+        cursor.close();
     }
 
 

@@ -35,13 +35,31 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_search_text"
                 android:inputType="text" />
-
-            <ImageButton
-                android:id="@+id/refresh"
-                android:layout_width="40dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@drawable/ic_search_black_24dp"/>
+                android:orientation="horizontal"
+                android:layout_gravity="start">
+
+                <ProgressBar
+                    android:id="@+id/pb3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="center"/>
+
+                <ImageButton
+                    android:id="@+id/refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_search_black_24dp"
+                    android:gravity="end"
+                    android:contentDescription="@string/contentDescription_search" />
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -49,6 +67,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp" />
+
+
 
 
         <android.support.v7.widget.RecyclerView

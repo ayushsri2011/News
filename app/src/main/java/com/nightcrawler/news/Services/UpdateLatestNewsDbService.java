@@ -27,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UpdateLatestNewsDbService extends IntentService {
 
@@ -62,7 +63,7 @@ public class UpdateLatestNewsDbService extends IntentService {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                JSONArray articlesList = responseJson.optJSONArray("articles");
+                JSONArray articlesList = Objects.requireNonNull(responseJson).optJSONArray("articles");
                 if (articlesList == null) {
                     return;
                 }

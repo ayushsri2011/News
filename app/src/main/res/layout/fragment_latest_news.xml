@@ -50,7 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:id="@+id/reload"
-            android:src="@drawable/ic_refresh_black_24dp"/>
+            android:src="@drawable/ic_refresh_black_24dp"
+            android:contentDescription="@string/contentDescription_refresh" />
 
     </LinearLayout>
 </FrameLayout>

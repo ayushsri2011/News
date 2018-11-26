@@ -29,6 +29,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class CategoryFragment extends Fragment {
@@ -52,9 +53,9 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        Toast.makeText(getActivity(), "Swipe Across for News", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.swipe_across, Toast.LENGTH_SHORT).show();
 
-        requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
 
         View rootView = inflater.inflate(R.layout.fragment_category, container, false);
 
@@ -98,13 +99,13 @@ public class CategoryFragment extends Fragment {
         String Base_URL = res.getString(R.string.request_LatestNews);
         String API_Key = res.getString(R.string.apiKey);
 
-        String URL_bus = Base_URL+country+"&category=business&pagesize=50&apiKey="+API_Key;
-        String URL_ent = Base_URL+country+"&category=entertainment&pagesize=50&apiKey="+API_Key;
-        String URL_general = Base_URL+country+"&category=general&pagesize=50&apiKey="+API_Key;
-        String URL_health = Base_URL+country+"&category=health&pagesize=50&apiKey="+API_Key;
-        String URL_science = Base_URL+country+"&category=science&pagesize=50&apiKey="+API_Key;
-        String URL_sports = Base_URL+country+"&category=sports&pagesize=50&apiKey="+API_Key;
-        String URL_technology = Base_URL+country+"&category=technology&pagesize=50&apiKey="+API_Key;
+        String URL_bus = Base_URL+country+"&category="+res.getString(R.string.category_business)+"&pagesize=50&apiKey="+API_Key;
+        String URL_ent = Base_URL+country+"&category="+res.getString(R.string.category_entertainment)+"&pagesize=50&apiKey="+API_Key;
+        String URL_general = Base_URL+country+"&category="+res.getString(R.string.category_general)+"&pagesize=50&apiKey="+API_Key;
+        String URL_health = Base_URL+country+"&category="+res.getString(R.string.category_health)+"&pagesize=50&apiKey="+API_Key;
+        String URL_science = Base_URL+country+"&category="+res.getString(R.string.category_science)+"&pagesize=50&apiKey="+API_Key;
+        String URL_sports = Base_URL+country+"&category="+res.getString(R.string.category_sports)+"&pagesize=50&apiKey="+API_Key;
+        String URL_technology = Base_URL+country+"&category="+res.getString(R.string.category_technology)+"&pagesize=50&apiKey="+API_Key;
 
         rv_bus.setAdapter(newsAdapter_bus);
         rv_ent.setAdapter(newsAdapter_ent);
@@ -142,7 +143,7 @@ public class CategoryFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                JSONArray articlesList = responseJson.optJSONArray("articles");
+                JSONArray articlesList = Objects.requireNonNull(responseJson).optJSONArray("articles");
                 if (articlesList == null) {
                     return;
                 }
@@ -179,7 +180,7 @@ public class CategoryFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                JSONArray articlesList = responseJson.optJSONArray("articles");
+                JSONArray articlesList = Objects.requireNonNull(responseJson).optJSONArray("articles");
                 if (articlesList == null) {
                     return;
                 }

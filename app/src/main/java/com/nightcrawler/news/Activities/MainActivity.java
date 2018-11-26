@@ -31,6 +31,8 @@ import com.nightcrawler.news.R;
 import com.nightcrawler.news.Services.UpdateLatestNewsDbService;
 import com.nightcrawler.news.Widget.CollectionAppWidgetProvider;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(actionbar).setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         Intent mServiceIntent = new Intent(this, UpdateLatestNewsDbService.class);

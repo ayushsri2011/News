@@ -9,13 +9,15 @@ import android.net.NetworkInfo;
 import com.nightcrawler.news.DataObjects.Article;
 import com.nightcrawler.news.Database.NewsContract;
 
+import java.util.Objects;
+
 public class Utility {
 
 
     public static boolean checkConnectivity(Context context){
         try{
             ConnectivityManager conMgr =  (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+            NetworkInfo netInfo = Objects.requireNonNull(conMgr).getActiveNetworkInfo();
             return netInfo != null;
         }catch(Exception e)
         {
@@ -42,7 +44,7 @@ public class Utility {
             context.getContentResolver().insert(NewsContract
                     .NewsContractEntry.CONTENT_URI2, contentValues);
         }
-
+        cursor.close();
 
     }
 }

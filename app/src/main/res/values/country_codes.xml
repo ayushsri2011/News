@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
 
 
-    <string name="Argentina" translatable="false">ar</string>
-    <string name="Australia" translatable="false">au</string>
-    <string name="Austria" translatable="false">at</string>
-    <string name="Belgium" translatable="false">be</string>
-    <string name="Brazil" translatable="false">br</string>
-    <string name="Bulgaria" translatable="false">bg</string>
-    <string name="Canada" translatable="false">ca</string>
-    <string name="China" translatable="false">cn</string>
-    <string name="Colombia" translatable="false">co</string>
-    <string name="Cuba" translatable="false">cu</string>
-    <string name="CzechRepublic" translatable="false">cz</string>
-    <string name="Egypt" translatable="false"> eg</string>
-    <string name="France" translatable="false">fr</string>
-    <string name="Germany" translatable="false">de</string>
-    <string name="Greece" translatable="false">gr</string>
-    <string name="HongKong" translatable="false">hk</string>
-    <string name="Hungary" translatable="false">hu</string>
-    <string name="India" translatable="false"> in</string>
-    <string name="Indonesia" translatable="false">id</string>
-    <string name="Ireland" translatable="false">ie</string>
-    <string name="Israel" translatable="false">il</string>
-    <string name="Italy" translatable="false">it</string>
-    <string name="Japan" translatable="false">jp</string>
-    <string name="Latvia" translatable="false">lv</string>
-    <string name="Lithuania" translatable="false">lt</string>
-    <string name="Malaysia" translatable="false"> my</string>
-    <string name="Mexico" translatable="false">mx</string>
-    <string name="Morocco" translatable="false">ma</string>
-    <string name="Netherlands" translatable="false">nl</string>
-    <string name="NewZealand" translatable="false">nz</string>
-    <string name="Nigeria" translatable="false">ng</string>
-    <string name="Norway" translatable="false">no</string>
-    <string name="Philippines" translatable="false">ph</string>
-    <string name="Poland" translatable="false">pl</string>
-    <string name="Portugal" translatable="false">pt</string>
-    <string name="Romania" translatable="false">ro</string>
-    <string name="Russia" translatable="false">ru</string>
-    <string name="ArabiaSaudi" translatable="false">sa</string>
-    <string name="Serbia" translatable="false">rs</string>
-    <string name="Singapore" translatable="false">sg</string>
-    <string name="Slovakia" translatable="false">sk</string>
-    <string name="Slovenia" translatable="false">si</string>
-    <string name="SouthAfrica" translatable="false">za</string>
-    <string name="KoreaSouth" translatable="false">kr</string>
-    <string name="Sweden" translatable="false">se</string>
-    <string name="Switzerland" translatable="false">ch</string>
-    <string name="Taiwan" translatable="false">tw</string>
-    <string name="Thailand" translatable="false">th</string>
-    <string name="Turkey" translatable="false">tr</string>
-    <string name="UAE" translatable="false">ae</string>
-    <string name="Ukraine" translatable="false">ua</string>
-    <string name="KingdomUnited" translatable="false">gb</string>
-    <string name="UnitedStates" translatable="false">us</string>
-    <string name="Venuzuela" translatable="false">ve</string>
+    <string name="Argentina" translatable="false" tools:keep="@string/Argentina">ar</string>
+    <string name="Australia" translatable="false" tools:keep="@string/Australia">au</string>
+    <string name="Austria" translatable="false" tools:keep="@string/Austria">at</string>
+    <string name="Belgium" translatable="false" tools:keep="@string/Belgium">be</string>
+    <string name="Brazil" translatable="false" tools:keep="@string/Brazil">br</string>
+    <string name="Bulgaria" translatable="false" tools:keep="@string/Bulgaria">bg</string>
+    <string name="Canada" translatable="false" tools:keep="@string/Canada">ca</string>
+    <string name="China" translatable="false" tools:keep="@string/China">cn</string>
+    <string name="Colombia" translatable="false" tools:keep="@string/Colombia">co</string>
+    <string name="Cuba" translatable="false" tools:keep="@string/Cuba">cu</string>
+    <string name="CzechRepublic" translatable="false" tools:keep="@string/CzechRepublic">cz</string>
+    <string name="Egypt" translatable="false" tools:keep="@string/Egypt"> eg</string>
+    <string name="France" translatable="false" tools:keep="@string/France">fr</string>
+    <string name="Germany" translatable="false" tools:keep="@string/Germany">de</string>
+    <string name="Greece" translatable="false" tools:keep="@string/Greece">gr</string>
+    <string name="HongKong" translatable="false" tools:keep="@string/HongKong">hk</string>
+    <string name="Hungary" translatable="false" tools:keep="@string/Hungary">hu</string>
+    <string name="India" translatable="false" tools:keep="@string/India"> in</string>
+    <string name="Indonesia" translatable="false" tools:keep="@string/Indonesia">id</string>
+    <string name="Ireland" translatable="false" tools:keep="@string/Ireland">ie</string>
+    <string name="Israel" translatable="false" tools:keep="@string/Israel">il</string>
+    <string name="Italy" translatable="false" tools:keep="@string/Italy">it</string>
+    <string name="Japan" translatable="false" tools:keep="@string/Japan">jp</string>
+    <string name="Latvia" translatable="false" tools:keep="@string/Latvia">lv</string>
+    <string name="Lithuania" translatable="false" tools:keep="@string/Lithuania">lt</string>
+    <string name="Malaysia" translatable="false" tools:keep="@string/Malaysia"> my</string>
+    <string name="Mexico" translatable="false" tools:keep="@string/Mexico">mx</string>
+    <string name="Morocco" translatable="false" tools:keep="@string/Morocco">ma</string>
+    <string name="Netherlands" translatable="false" tools:keep="@string/Netherlands">nl</string>
+    <string name="NewZealand" translatable="false" tools:keep="@string/NewZealand">nz</string>
+    <string name="Nigeria" translatable="false" tools:keep="@string/Nigeria">ng</string>
+    <string name="Norway" translatable="false" tools:keep="@string/Norway">no</string>
+    <string name="Philippines" translatable="false" tools:keep="@string/Philippines">ph</string>
+    <string name="Poland" translatable="false" tools:keep="@string/Poland">pl</string>
+    <string name="Portugal" translatable="false" tools:keep="@string/Portugal">pt</string>
+    <string name="Romania" translatable="false" tools:keep="@string/Romania">ro</string>
+    <string name="Russia" translatable="false" tools:keep="@string/Russia">ru</string>
+    <string name="ArabiaSaudi" translatable="false" tools:keep="@string/ArabiaSaudi">sa</string>
+    <string name="Serbia" translatable="false" tools:keep="@string/Serbia">rs</string>
+    <string name="Singapore" translatable="false" tools:keep="@string/Singapore">sg</string>
+    <string name="Slovakia" translatable="false" tools:keep="@string/Slovakia">sk</string>
+    <string name="Slovenia" translatable="false" tools:keep="@string/Slovenia">si</string>
+    <string name="SouthAfrica" translatable="false" tools:keep="@string/SouthAfrica">za</string>
+    <string name="KoreaSouth" translatable="false" tools:keep="@string/KoreaSouth">kr</string>
+    <string name="Sweden" translatable="false" tools:keep="@string/Sweden">se</string>
+    <string name="Switzerland" translatable="false" tools:keep="@string/Switzerland">ch</string>
+    <string name="Taiwan" translatable="false" tools:keep="@string/Taiwan">tw</string>
+    <string name="Thailand" translatable="false" tools:keep="@string/Thailand">th</string>
+    <string name="Turkey" translatable="false" tools:keep="@string/Turkey">tr</string>
+    <string name="UAE" translatable="false" tools:keep="@string/UAE">ae</string>
+    <string name="Ukraine" translatable="false" tools:keep="@string/Ukraine">ua</string>
+    <string name="KingdomUnited" translatable="false" tools:keep="@string/KingdomUnited">gb</string>
+    <string name="UnitedStates" translatable="false" tools:keep="@string/UnitedStates">us</string>
+    <string name="Venuzuela" translatable="false" tools:keep="@string/Venuzuela">ve</string>
 </resources>

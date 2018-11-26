@@ -1,5 +1,6 @@
 package com.nightcrawler.news.Fragments;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +33,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchFragment extends Fragment {
     private RecyclerView rv;
     private TextView search_text;
     private ImageButton refresh;
+    private ProgressBar pb3;
     NewsAdapter newsAdapter;
 
     public SearchFragment() {
@@ -48,13 +52,16 @@ public class SearchFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
         rv = rootView.findViewById(R.id.rv_search);
+        pb3 = rootView.findViewById(R.id.pb3);
+        pb3.setVisibility(View.INVISIBLE);
+
         newsAdapter = new NewsAdapter(getContext());
         rv.setAdapter(newsAdapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         search_text = rootView.findViewById(R.id.search_text);
         refresh = rootView.findViewById(R.id.refresh);
 
-        final String finalURL = "https://newsapi.org/v2/top-headlines?q=";
+//        final String finalURL = "https://newsapi.org/v2/top-headlines?q=";
 
 
         search_text.setOnKeyListener(new View.OnKeyListener() {
@@ -83,11 +90,13 @@ public class SearchFragment extends Fragment {
 
     public void processRequest() {
 
+        pb3.setVisibility(View.VISIBLE);
         String text = search_text.getText().toString();
-        String t = "https://newsapi.org/v2/top-headlines?q=";
+        Resources res=getResources();
+        String t=res.getString(R.string.request_SearchNews);
         if (!t.trim().equals("")) {
             t += text;
-            t += "&apiKey=a631133308204b1ba583dc2ed43486b5";
+            t += "&apiKey="+res.getString(R.string.apiKey);
 
             StringRequest stringRequest = new StringRequest(t, new Response.Listener<String>() {
                 @Override
@@ -101,7 +110,7 @@ public class SearchFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    JSONArray articlesList = responseJson.optJSONArray("articles");
+                    JSONArray articlesList = Objects.requireNonNull(responseJson).optJSONArray("articles");
                     if (articlesList == null) {
                         return;
                     }
@@ -113,11 +122,13 @@ public class SearchFragment extends Fragment {
                     if (articleList.size() > 0) {
                         newsAdapter.setDataSource(articleList);
                     }
+                    pb3.setVisibility(View.INVISIBLE);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getActivity(), "FAILURE", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Unable to fetch results", Toast.LENGTH_SHORT).show();
+                    pb3.setVisibility(View.INVISIBLE);
                     Log.d("TEST", "FAILURE");
                 }
             });
