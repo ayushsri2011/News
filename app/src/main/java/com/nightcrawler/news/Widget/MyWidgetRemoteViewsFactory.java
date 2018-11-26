@@ -35,7 +35,7 @@ public class MyWidgetRemoteViewsFactory implements RemoteViewsService.RemoteView
         widgetList.add(" ");
         try {
             Cursor cursor = mContext.getContentResolver().query(NewsContract.NewsContractEntry.CONTENT_URI2, null, null,
-                    null, null);
+                    null, "timestamp desc");
 
             if (cursor != null) {
                 cursor.moveToFirst();
