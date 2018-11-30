@@ -1,6 +1,7 @@
 
 package com.nightcrawler.news.Adapters;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -8,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,10 +30,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     private Context context;
     private List<Article> articles;
 
-    public NewsAdapter(Context context) {
-        this.context = context;
-
-    }
+    public NewsAdapter(Context context) {        this.context = context;    }
 
     public void setDataSource(List<Article> articles) {
         this.articles = articles;
@@ -44,28 +44,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         return new MyViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
 
         holder.article_description.setText(articles.get(position).getTitle());
+        holder.article_description.setContentDescription(articles.get(position).getTitle());
         holder.article_author.setText(articles.get(position).getAuthor());
+        holder.article_author.setContentDescription(articles.get(position).getAuthor());
         try {
             if (!articles.get(position).getUrlToImage().equals("") && !Objects.equals(articles.get(position).getUrlToImage(), " "))
                 Picasso.get()
                         .load(articles.get(position).getUrlToImage())
                         .placeholder(R.drawable.news).into(holder.card_iv);
+            holder.card_iv.setContentDescription("Article Image");
         } catch (Exception e) {
             holder.card_iv.setImageResource(R.drawable.news);
         }
-
-
     }
 
-    @Override
-    public int getItemCount() {
-        return articles == null ? 0 : articles.size();
-    }
+    @Override public int getItemCount() {        return articles == null ? 0 : articles.size();    }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -92,7 +89,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             intent.putExtra("urlToImage", articles.get(pos).getUrlToImage());
             intent.putExtra("title", articles.get(pos).getTitle());
             intent.putExtra("publishedAt", articles.get(pos).getPublishedAt());
-            context.startActivity(intent);
+//            context.startActivity(intent);
+            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view, 0,
+                    0, view.getWidth(), view.getHeight());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent, options.toBundle());
+
+//            Animation animation = AnimationUtils.loadAnimation(context, R.anim.blink);
+//            animation.startNow();
+
+//            overridePendingTransition(R.anim.right_in, R.anim.blink);
+//            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+//            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
