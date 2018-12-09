@@ -36,8 +36,8 @@
             android:text="@string/placeholder"
             android:maxLines="3"
             android:textDirection="anyRtl"
-            android:textColor="@color/color_text"
-            android:background="@color/color_background"/>
+            android:background="?android:attr/selectableItemBackground"/>
+            <!--android:background="@color/color_background"/>-->
 
         <TextView
             android:id="@+id/article_author"

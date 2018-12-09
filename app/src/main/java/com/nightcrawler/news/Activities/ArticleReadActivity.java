@@ -1,16 +1,21 @@
 package com.nightcrawler.news.Activities;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
@@ -173,6 +178,14 @@ public class ArticleReadActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
+            animation.startNow();
+            finish();
+    }
+
     private void showInterstitial() {
         if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
@@ -181,12 +194,8 @@ public class ArticleReadActivity extends AppCompatActivity {
 
     private void createAd() {
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.admob_test_device_id)).build();
-
-
 //        .addTestDevice("TEST_DEVICE_ID")
         mAdView.loadAd(adRequest);
-
-
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {

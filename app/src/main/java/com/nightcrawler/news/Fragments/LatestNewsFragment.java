@@ -42,12 +42,19 @@ public class LatestNewsFragment extends Fragment {
     private RecyclerView rv;
     private ImageButton reload_button;
     private ProgressBar pb2;
-//    Tracker mTracker;
     public LatestNewsFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        Toast.makeText(getActivity(), "IN onCreateView", Toast.LENGTH_SHORT).show();
+
+        if (savedInstanceState != null) {
+            Toast.makeText(getActivity(), "IN savedInstanceState", Toast.LENGTH_SHORT).show();
+            rv.scrollToPosition(savedInstanceState.getInt("scrollPosition",1));
+            //Restore the fragment's state here
+        }
 
         View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
         rv = rootView.findViewById(R.id.rv_latest_news);
@@ -146,6 +153,30 @@ public class LatestNewsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.i("LatestNewsFragment", "Setting LatestNewsFragment: ");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("scrollPosition",rv.getVerticalScrollbarPosition());
+        //Save the fragment's state here
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            Toast.makeText(getActivity(), "IN savedInstanceState", Toast.LENGTH_SHORT).show();
+            rv.scrollToPosition(savedInstanceState.getInt("scrollPosition",1));
+            //Restore the fragment's state here
+        }
+    }
+
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     public void insertLatestNewsDb(Article article) {

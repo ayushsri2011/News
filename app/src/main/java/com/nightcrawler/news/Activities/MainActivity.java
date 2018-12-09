@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -44,31 +45,7 @@ public class MainActivity extends AppCompatActivity {
     SearchFragment searchFragment;
     CategoryFragment categoryFragment;
     int doOnce = 0;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-
-                    for (int i = 0; i < navigationView.getMenu().size(); i++) {
-                        navigationView.getMenu().getItem(i).setChecked(false);
-                    }
-
-                    selectFragment(item);
-                    return true;
-                case R.id.navigation_dashboard:
-                    selectFragment(item);
-                    return true;
-                case R.id.navigation_notifications:
-                    selectFragment(item);
-                    return true;
-            }
-            mDrawerLayout.closeDrawer(GravityCompat.START);
-            return false;
-        }
-    };
 
     public static final String TAG = MainActivity.class
             .getSimpleName();
@@ -76,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -100,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         GoogleAnalytics googleAnalytics = GoogleAnalytics.getInstance(this);
-        googleAnalytics.setLocalDispatchPeriod(3000);
+        googleAnalytics.setLocalDispatchPeriod(30000);
 
         Tracker tracker = googleAnalytics.newTracker("UA-129102573-1");
         tracker.enableExceptionReporting(true);
@@ -140,8 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        mDrawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
                     @Override
                     public void onDrawerSlide(View drawerView, float slideOffset) {
                         // Respond when the drawer's position changes
@@ -171,6 +148,31 @@ public class MainActivity extends AppCompatActivity {
         String country = sharedPreferences.getString("country", "us");
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+
+                    for (int i = 0; i < navigationView.getMenu().size(); i++) {
+                        navigationView.getMenu().getItem(i).setChecked(false);
+                    }
+
+                    selectFragment(item);
+                    return true;
+                case R.id.navigation_dashboard:
+                    selectFragment(item);
+                    return true;
+                case R.id.navigation_notifications:
+                    selectFragment(item);
+                    return true;
+            }
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            return false;
+        }
+    };
     private void selectFragment(MenuItem item) {
 
         if (doOnce == 0) {
@@ -233,14 +235,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void updateToolbarText(CharSequence text) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(text);
-        }
     }
 
     @Override
